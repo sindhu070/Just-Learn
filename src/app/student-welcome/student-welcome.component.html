@@ -1,0 +1,106 @@
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<div id="container1">
+  <nav>
+    <div id="logo">
+     Just-Learn
+    </div>
+    <ul>
+      <li><a (click)="home()">Home</a></li>
+      <li><a (click)="about()">About</a></li>
+      <li><a (click)="contact()">Contact</a></li>
+      <!-- <li class="dropdown" onmouseover="hover(this);" onmouseout="out(this);"><a href="#">Register &nbsp;<i class="fa fa-caret-down"></i></a>
+        <div class="dd">
+          <div id="up_arrow"></div>
+        <ul>
+          <li><a href="#">as Student</a></li>
+          <li><a href="#">as Teacher</a></li>
+        </ul>
+        </div>
+      </li> -->
+      <li class="dropdown"><a (click)="logout()">Log Out <i class="glyphicon glyphicon-log-out"></i> </a></li>
+       <!-- <div class="dd">
+         <div id="u_a_c"><div id="up_arrow"></div></div>
+        <ul>
+          <li><a href="#">as Student</a></li>
+          <li><a href="#">as Teacher</a></li>
+        </ul>
+        </div> -->
+        
+    </ul>
+  </nav>
+</div>
+
+<body>
+<br>&nbsp;
+<h3>Welcome {{sname}}</h3>
+<div class="text-right mb-6">
+  <button class="btn btn-success btn-lg" (click)="join()">Join New Classroom <i class="glyphicon glyphicon-plus-sign"></i></button>
+</div>&nbsp;&nbsp;
+
+<!-- <div *ngIf="see">
+  <h2 mat-dialog-title>Login Window</h2>
+  <mat-dialog-content>Hi {{data.username}} You logged in successfully</mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="btn btn-success" mat-dialog-close mat-dialog-close="true">Close</button>
+  </mat-dialog-actions>
+  </div> -->
+  <!-- <table class="table">
+    <tr>
+    <th>Subject Code</th>
+    <th>Subject Name</th>
+    <th>Faculty Name</th>
+  </tr>
+  <tr *ngFor="let c of classes">
+    <td>
+      {{c.subcode}}
+    </td>
+    <td>
+      {{c.subname}}
+    </td>
+    <td>
+      {{c.name}}
+    </td>
+  </tr>
+  </table> -->
+  <div  *ngIf="show">
+  <p>No classes registered as of now. Kindly Register to experience the best of teaching <i class="fa fa-smile"></i></p>
+</div>
+<table class="table" *ngIf="show1">
+  <tr>
+  <td  *ngFor="let c of classes">
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{c.subname}}</mat-card-title>
+        <mat-card-subtitle>{{c.name}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          
+        </p>
+      </mat-card-content><br>
+      <mat-card-actions>
+        <div class="text-center">
+        <button class="btn btn-primary" > Open <i class="glyphicon glyphicon-chevron-right"></i></button>
+        </div>
+      </mat-card-actions>
+      
+    </mat-card>
+
+  </td>
+  <hr>
+  </tr>
+
+
+
+</table>
+</body>
+   

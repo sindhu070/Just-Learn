@@ -1,0 +1,130 @@
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<div id="container1">
+  <nav>
+    <div id="logo">
+     Just-Learn
+    </div>
+    <ul>
+      <li><a (click)="home()">Home</a></li>
+      <li><a (click)="about()">About</a></li>
+      <li><a (click)="contact()">Contact</a></li>
+      <!-- <li class="dropdown" onmouseover="hover(this);" onmouseout="out(this);"><a href="#">Register &nbsp;<i class="fa fa-caret-down"></i></a>
+        <div class="dd">
+          <div id="up_arrow"></div>
+        <ul>
+          <li><a href="#">as Student</a></li>
+          <li><a href="#">as Teacher</a></li>
+        </ul>
+        </div>
+      </li> -->
+      <li class="dropdown"><a (click)="logout()">Log Out <i class="glyphicon glyphicon-log-out"></i> </a></li>
+       <!-- <div class="dd">
+         <div id="u_a_c"><div id="up_arrow"></div></div>
+        <ul>
+          <li><a href="#">as Student</a></li>
+          <li><a href="#">as Teacher</a></li>
+        </ul>
+        </div> -->
+        
+    </ul>
+  </nav>
+</div>
+
+<body>
+<br>&nbsp;
+<h3>Welcome to Just Learn,{{tname}}</h3>
+<div class="text-right mb-6">
+  <button class="btn btn-success btn-lg" (click)="create()">Create New Class <i class="glyphicon glyphicon-plus-sign"></i></button>
+</div><br>
+<div class="container" *ngIf="show">
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Class Creation</legend>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="subname">Subject Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="subname" placeholder="Enter subject name" name="subname" [(ngModel)]="subjectname" #subname="ngModel">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="ysec">Year and Section:</label>
+      <div class="col-sm-4">          
+        <input type="text" class="form-control" id="ysec" placeholder="Enter year and section" name="ysec" [(ngModel)]="yearsec" #ysec="ngModel">
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-success" (click)="submitclass()">Submit</button>
+      </div>
+    </div>
+  </form>
+  </fieldset>
+</div>
+
+ <!-- <div *ngIf="see">
+  <h2 mat-dialog-title>Login Window</h2>
+  <mat-dialog-content>Hi {{data.username}} You logged in successfully</mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="btn btn-success" mat-dialog-close mat-dialog-close="true">Close</button>
+  </mat-dialog-actions>
+  </div>  -->
+  <!-- <table class="table">
+    <tr>
+    <th>Subject Code</th>
+    <th>Subject Name</th>
+    <th>Faculty Name</th>
+  </tr>
+  <tr *ngFor="let c of classes">
+    <td>
+      {{c.subcode}}
+    </td>
+    <td>
+      {{c.subname}}
+    </td>
+    <td>
+      {{c.name}}
+    </td>
+  </tr>
+  </table> -->
+   <div  *ngIf="show2">
+  <p>No classes registered as of now. Kindly Register to experience the best of teaching <i class="fa fa-smile"></i></p>
+</div>
+<table class="table" *ngIf="show1">
+  <tr  *ngFor="let c of tclass">
+  <td >
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+        <mat-card-title>Class : {{c.yearandsection}}</mat-card-title>
+        <mat-card-subtitle>Subject : {{c.subname}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <h4>
+         Subject Code : {{c.subcode}}
+        </h4>
+      </mat-card-content><br>
+      <mat-card-actions>
+        <div class="text-center">
+        <button class="btn btn-primary" (click)="openClass(c.subcode)" > Open <i class="glyphicon glyphicon-chevron-right"></i></button>
+        </div>
+      </mat-card-actions>
+      
+    </mat-card>
+
+  </td>
+  <hr>
+  </tr>
+
+
+
+</table> 
+</body>
+   

@@ -1,0 +1,60 @@
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<div  class="container">
+  <br>
+<mat-tab-group mat-align-tabs="center"  #tabRef (selectedTabChange)="ch(tabRef.selectedIndex)">
+  <mat-tab label="Materials"></mat-tab><br>
+  <mat-tab label="Assignments"></mat-tab><br>
+  <mat-tab label="Student Details"></mat-tab><br>
+</mat-tab-group><br><br><br><br><br><br>
+<h3> Please upload Materials here</h3><br>
+<form action="/action_page.php">
+  <div class="form-group">
+    <div class="col-xs-4">
+      <input class="form-control" name="title" id="ex2" type="text" placeholder="Enter title" [(ngModel)]="title1" #title="ngModel"><br>
+      <input class="form-control form-control-lg"  type="file" (change)="onFileChanged($event)"><br>
+      <button class="btn btn-success" (click)="onUpload()" value="upload">Upload</button>
+    </div>
+
+    </div>
+ 
+</form>
+
+<div>
+
+</div>
+
+<div *ngIf="stu">
+<table class="table">
+  <tr>
+    <th>
+     Roll Number
+    </th>
+    <th>
+      Student Name
+    </th>
+    <th>
+      EmailId
+    </th>
+  </tr>
+  <tr  *ngFor="let sj of sjarray">
+    <td>
+      {{sj.rollnumber}}
+    </td>
+    <td>
+      {{sj.name}}
+    </td>
+    <td>
+      <a href="mailto:{{sj.emailid}}">{{sj.emailid}}</a>
+    </td>
+  </tr>
+</table>
+</div>
+<a [href]="fileUrl" download="text.txt">DownloadFile</a>
+</div>
