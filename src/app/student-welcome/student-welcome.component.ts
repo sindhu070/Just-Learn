@@ -70,7 +70,9 @@ closeResult: string;
       
     });
   }
-
+  openClass(sid:string) : void {
+    this.router.navigate(['studentmain',sid,this.studentid]);
+  }
   home(){
     location.reload();
   }

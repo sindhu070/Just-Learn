@@ -13,8 +13,8 @@
     </div>
     <ul>
       <li><a (click)="home()">Home</a></li>
-      <li><a (click)="about()">About</a></li>
-      <li><a (click)="contact()">Contact</a></li>
+      <!-- <li><a (click)="about()">About</a></li>
+      <li><a (click)="contact()">Contact</a></li> -->
       <!-- <li class="dropdown" onmouseover="hover(this);" onmouseout="out(this);"><a href="#">Register &nbsp;<i class="fa fa-caret-down"></i></a>
         <div class="dd">
           <div id="up_arrow"></div>
@@ -73,8 +73,8 @@
   <p>No classes registered as of now. Kindly Register to experience the best of teaching <i class="fa fa-smile"></i></p>
 </div>
 <table class="table" *ngIf="show1">
-  <tr>
-  <td  *ngFor="let c of classes">
+  <tr   *ngFor="let c of classes">
+  <td>
 
     <mat-card class="example-card">
       <mat-card-header>
@@ -89,7 +89,7 @@
       </mat-card-content><br>
       <mat-card-actions>
         <div class="text-center">
-        <button class="btn btn-primary" > Open <i class="glyphicon glyphicon-chevron-right"></i></button>
+        <button class="btn btn-primary" (click)="openClass(c.subcode)"> Open <i class="glyphicon glyphicon-chevron-right"></i></button>
         </div>
       </mat-card-actions>
       

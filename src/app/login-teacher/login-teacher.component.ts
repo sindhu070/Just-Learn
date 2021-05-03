@@ -13,6 +13,7 @@ import { TeacherService } from '../teacher.service';
 })
 export class LoginTeacherComponent implements OnInit {
   id: any;
+  show: boolean;
 
   constructor(private router:Router,private teacherservice:TeacherService,private matDialog:MatDialog) { }
 
@@ -27,7 +28,9 @@ export class LoginTeacherComponent implements OnInit {
 
     this.router.navigate(['Teacherregister']);
   }
-  
+  passwordm() {
+    this.show = !this.show;
+  } 
   login(): void {
     this.login1.username=this.username;
     this.login1.password=this.password;

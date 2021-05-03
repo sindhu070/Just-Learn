@@ -16,9 +16,9 @@ export class DboxComponent implements OnInit {
   }
 
   act(){
-    alert(this.con.rollnumber)
     this.studentservice.joinStudent(this.con.rollnumber,this.scode).subscribe(data=>
       {
+        console.log(data);
         if(data==='Updated successfully'){
           this.router.navigate(['sw'],this.con.id)
         } else {

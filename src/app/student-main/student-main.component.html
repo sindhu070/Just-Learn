@@ -46,20 +46,7 @@
   <mat-tab label="Assignments"></mat-tab><br>
   <mat-tab label="Student Details"></mat-tab><br>
 </mat-tab-group><br><br><br><br><br><br>
-<div *ngIf="material">
-<h3> Please upload Materials here</h3><br>
-<form action="/action_page.php">
-  <div class="form-group">
-    <div class="col-xs-4">
-      <input class="form-control" name="title" id="ex2" type="text" placeholder="Enter title" [(ngModel)]="title1" #title="ngModel"><br>
-      <input class="form-control form-control-lg"  type="file" (change)="onFileChanged($event)"><br>
-      <button class="btn btn-success" (click)="onUpload()" value="upload">Upload</button>
-     <br><br><br>
-    </div>
 
-    </div>
-</form>
-</div>
 <div *ngIf="disp">
   <table class="table">
     <tr>
@@ -100,47 +87,26 @@
   </tr>
 </table>
 </div>
-<!-- <a [href]="fileUrl" download="text.txt">DownloadFile</a> -->
-
 <div *ngIf="assignment">
-  <form class="form-inline" action="/action_page.php">
-    <div class="form-group">
-      <input type="text" class="form-control" id="assigntitle" placeholder="Enter Title" name="atitle" [(ngModel)]="assigntitle" #atitle="ngModel">
-    </div> &nbsp;&nbsp;&nbsp;
-    <div class="form-group">
-      <input type="text" class="form-control" id="question" placeholder="Enter Assignment Question Here" name="ques" [(ngModel)]="aquestion" #ques="ngModel">
-    </div>&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-success" (click)="uploadAssignment(assigntitle,aquestion)">Upload Assignment</button>
-  </form>
-</div>
-<div *ngIf="displayAssignment">
 <table class="table">
   <tr>
-    <th>
-      Assignment Name
-    </th>
-    <th>
-      Assignment Question
-    </th>
-    <th>
-      Details
-    </th>
+    <th>Assignment Question</th>
+    <th>Upload Answers</th>
+    <th>Marks</th>
   </tr>
   <tr *ngFor="let a of assignments">
-    <td>
-      {{a.assiname}}
-    </td>
-    <td>
-      {{a.assique}}
-    </td>
-    <td>
-    <button class="btn btn-warning" (click)="showStudentAssignmentDetails(a.id)">Show Student List</button>
-    </td>
-
+    <td>{{a.assique}}</td>
+    <td><form class="form-inline">
+      <div class="form-group">
+          <input class="form-control form-control-lg"  type="file" (change)="onFileChanged($event)">&nbsp;&nbsp;
+          <button class="btn btn-danger" (click)="onUpload()" value="upload">Upload</button>
+         <br><br><br>
     
+        </div>
+    </form></td>
+    <td>0</td>
   </tr>
 </table>
 </div>
-
-
+<!-- <a [href]="fileUrl" download="text.txt">DownloadFile</a> -->
 </div>

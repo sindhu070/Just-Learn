@@ -87,33 +87,8 @@ export class TeacherWelcomeComponent implements OnInit {
     });
   }
   openClass(sid) : void {
-    this.router.navigate(['teachermain/',sid]);
+    this.router.navigate(['teachermain/',sid,this.teacherid]);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

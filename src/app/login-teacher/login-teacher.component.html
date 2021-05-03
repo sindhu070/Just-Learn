@@ -158,7 +158,8 @@ body {
 						<i class="fa fa-lock"></i>
 					</span>                    
 				</div>
-				<input type="password" class="form-control" name="tpass" id="spassword" placeholder="Password" required="required"  [(ngModel)]="password" #tpass="ngModel">
+				<input [type]="show ? 'text' : 'password'" class="form-control" name="password" id="spassword" placeholder="Password" required="required"  [(ngModel)]="password" #spassword="ngModel"><button (click)="passwordm()" (click) = "toggle = !toggle">
+					<span>{{toggle ? 'Hide' : 'Show'}}</span></button>
 			</div>
         </div>
 		<p id="sp" hidden>1.Password should be between 6 and 16 characters<br>2.It should contain special characters like !@#$%^&* <br>3.It should contain caps and small characters</p>

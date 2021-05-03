@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { AssignmentListComponent } from './assignment-list/assignment-list.component';
 import { HomeComponent } from './home/home.component';
 import { LoginStudentComponent } from './login-student/login-student.component';
 import { LoginTeacherComponent } from './login-teacher/login-teacher.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import { RegisterTeacherComponent } from './register-teacher/register-teacher.component';
+import { StudentMainComponent } from './student-main/student-main.component';
 import { StudentWelcomeComponent } from './student-welcome/student-welcome.component';
 import { TeacherMainComponent } from './teacher-main/teacher-main.component';
 import { TeacherWelcomeComponent } from './teacher-welcome/teacher-welcome.component';
@@ -19,7 +21,9 @@ const routes: Routes = [
     {path:'home', component:HomeComponent},
     {path:'sw/:id', component:StudentWelcomeComponent},
     {path:'tw/:id', component:TeacherWelcomeComponent},
-    {path:'teachermain/:sid', component:TeacherMainComponent},
+    {path:'teachermain/:sid/:tid', component:TeacherMainComponent},
+    {path:'studentmain/:sid/:stuid', component:StudentMainComponent},
+    {path:'assignment/:aid/:tid', component:AssignmentListComponent},
     {path:'', redirectTo: 'home', pathMatch:'full'}
     
 ];

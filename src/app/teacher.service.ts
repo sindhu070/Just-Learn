@@ -62,10 +62,41 @@ export class TeacherService {
   
   uploadMaterial(file:FormData,tile:string,subcode:string) :Observable<any>{
     const header = {'Content-type': false};
-    return this.http.post(`${this.baseUrl}/materials/add/${subcode}/?title=${tile}`,file,{responseType:'text'});
+    return this.http.post(`${this.baseUrl}/addfiles/add/${subcode}/?title=${tile}`,file,{responseType:'text'});
 
   }
   getFiles(subcode:string) :Observable<any> {
-    return this.http.get(`${this.baseUrl}/files/subcode/${subcode}`);
+    return this.http.get(`${this.baseUrl}/getallfiles/${subcode}`);
   } 
+  openFile(fileid:string) :Observable<any> {
+    return this.http.get(`${this.baseUrl}/files/stream/${fileid}`);
+  }
+  saveAssignmentDetails(title:string,ques:string,subcode:string):Observable<any> {
+    const header = {'content-type': 'application/json'};
+    var obj = {
+      "assiname":title,
+      "assique":ques
+      }
+    const body = JSON.stringify(obj);
+    return this.http.post(`${this.baseUrl}/saveAssignmentdetails/${subcode}`,body,{headers: header, responseType: 'text'});
+  }
+
+  getAssignmentDetails(subcode:string) :Observable<any> {
+    return this.http.get(`${this.baseUrl}/getallassignmentsofsub/${subcode}`);
+  }
+  getStudentAssignmentDetails(assignid:string):Observable<any> {
+    return this.http.get(`${this.baseUrl}/getallassiansofassi/${assignid}`);
+  }
+
+  updateMarks(ansid:string,marks:number) : Observable<any> {
+    const header = {'content-type': 'application/json'};
+    var obj = {
+      "id":ansid,
+      "marks":marks
+      }
+    const body = JSON.stringify(obj);
+    return this.http.put(`${this.baseUrl}/addmarks`,body,{headers: header, responseType: 'text'});
+  }
 }
+
+

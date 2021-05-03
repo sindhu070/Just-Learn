@@ -20,6 +20,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { DboxComponent } from './dbox/dbox.component';
 import { TeacherWelcomeComponent } from './teacher-welcome/teacher-welcome.component';
 import { TeacherMainComponent } from './teacher-main/teacher-main.component';
+import { StudentMainComponent } from './student-main/student-main.component';
+import { AssignmentListComponent } from './assignment-list/assignment-list.component';
 const routes: Routes = [
   {
       path: '',
@@ -43,6 +45,8 @@ const routes: Routes = [
     DboxComponent,
     TeacherWelcomeComponent,
     TeacherMainComponent,
+    StudentMainComponent,
+    AssignmentListComponent,
 
   ],
   
