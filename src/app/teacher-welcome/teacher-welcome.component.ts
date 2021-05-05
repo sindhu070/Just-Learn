@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 import { GreetingsComponent } from '../greetings/greetings.component';
 import { SubjectService } from '../subject.service';
 import { Subcodes } from '../SubjectCodes';
@@ -90,6 +91,32 @@ export class TeacherWelcomeComponent implements OnInit {
     this.router.navigate(['teachermain/',sid,this.teacherid]);
   }
 
+  deleteClass(classid:string) : void {
+    let dialogRef = this.matDialog.open(DeleteConfirmationComponent,{
+      data: {
+      title:"Confirmation",
+      message:"Are you sure you want to delete?",
+       username:this.tname
+      }
+    });
+    dialogRef.afterClosed().subscribe(result=> {
+      console.log(`dialog result:${result}`)
+      if(result === 'true'){
+        //alert("Successfully logged in");
+        this.teacherservice.deleteClassroom(classid).subscribe(content=>{
+          console.log(content);
+          if(content==='Classroom deleted') {
+            location.reload();
+          }
+        });
+
+      } else if(result === 'false'){
+        location.reload();
+      }
+    });
+  
+  }
+
 
 
 
@@ -97,12 +124,10 @@ export class TeacherWelcomeComponent implements OnInit {
   home(){
     location.reload();
   }
-  about() {
-    this.router.navigate(['/']);
+ myaccount() {
+    this.router.navigate(['teacheraccount',this.teacherid]);
   }
-  contact(){
-    this.router.navigate(['/']);
-  }
+
   logout() {
     this.router.navigate(['/']);
   }

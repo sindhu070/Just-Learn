@@ -17,6 +17,7 @@ export class AssignmentListComponent implements OnInit {
    assignid:string;
    asl:AssignmentList[];
    teacherid:string;
+   ans:String[];
   constructor(private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
@@ -27,8 +28,20 @@ export class AssignmentListComponent implements OnInit {
   onload(aid:string) : void {
     this.teacherservice.getStudentAssignmentDetails(aid).subscribe(info=>{
      this.asl = info;
+    //  info.forEach(con=>{
+    //    console.log(con.studans);
+    //    this.ans=con.studans;
+    //  });
     });
   }
+
+  openFile(fileid:string) : void {
+    window.open(`http://localhost:8080/jl/files/stream/${fileid}`, '_blank');
+    // this.teacherservice.openFile(fileid).subscribe(fileinfo=>{
+    //   console.log(fileinfo);
+    // });
+  }
+
 
   submitMarks(ansid:string,marks:number) : void {
     this.teacherservice.updateMarks(ansid,marks).subscribe(data=> {

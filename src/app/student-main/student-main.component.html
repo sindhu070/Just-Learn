@@ -14,8 +14,8 @@
     </div>
     <ul>
       <li><a (click)="home()">Home</a></li>
-      <!-- <li><a (click)="about()">About</a></li>
-      <li><a (click)="contact()">Contact</a></li> -->
+       <li><a (click)="myaccount()">MyAccount</a></li>
+      <!--<li><a (click)="contact()">Contact</a></li> -->
       <!-- <li class="dropdown" onmouseover="hover(this);" onmouseout="out(this);"><a href="#">Register &nbsp;<i class="fa fa-caret-down"></i></a>
         <div class="dd">
           <div id="up_arrow"></div>
@@ -92,19 +92,22 @@
   <tr>
     <th>Assignment Question</th>
     <th>Upload Answers</th>
-    <th>Marks</th>
+    <th>Marks Allocated</th>
   </tr>
   <tr *ngFor="let a of assignments">
     <td>{{a.assique}}</td>
     <td><form class="form-inline">
       <div class="form-group">
           <input class="form-control form-control-lg"  type="file" (change)="onFileChanged($event)">&nbsp;&nbsp;
-          <button class="btn btn-danger" (click)="onUpload()" value="upload">Upload</button>
+          <button class="btn btn-danger" (click)="onUpload(a.id)" value="upload">Upload</button><br><br>
+          <tr *ngFor="let p1 of a.assians">
+            <a style="color:blue;" (click)="openFile(p1)">{{p1}}</a>
+          
+          </tr>
          <br><br><br>
-    
         </div>
     </form></td>
-    <td>0</td>
+    <td>{{a.smarks}} / {{a.assimarks}}</td>
   </tr>
 </table>
 </div>

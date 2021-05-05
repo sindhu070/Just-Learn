@@ -9,6 +9,7 @@ import { DboxComponent } from '../dbox/dbox.component';
 import { stringify } from '@angular/core/src/util';
 import { Classroom } from 'src/classes';
 import { dashCaseToCamelCase } from '@angular/compiler/src/util';
+import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-student-welcome',
@@ -73,14 +74,37 @@ closeResult: string;
   openClass(sid:string) : void {
     this.router.navigate(['studentmain',sid,this.studentid]);
   }
+  leaveOff(subcode:string) : void {
+    let dialogRef = this.matDialog.open(DeleteConfirmationComponent,{
+      data: {
+      title:"Confirmation",
+      message:"Are you sure you want to leave the class?",
+       username:this.sname
+      }
+    });
+    dialogRef.afterClosed().subscribe(result=> {
+      console.log(`dialog result:${result}`)
+      if(result === 'true'){
+        //alert("Successfully logged in");
+        this.studentservice.leaveOff(this.studentid,subcode).subscribe(data=>{
+          console.log(data)
+          if(data==='Successfully left off') {
+            location.reload();
+          }
+        });
+      } else if(result === 'false'){
+        location.reload();
+      }
+    });
+  }
+
+
+
   home(){
     location.reload();
   }
-  about() {
-    this.router.navigate(['/']);
-  }
-  contact(){
-    this.router.navigate(['/']);
+  myaccount() {
+    this.router.navigate(['myaccount',this.studentid]);
   }
   logout() {
     this.router.navigate(['/']);

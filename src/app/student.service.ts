@@ -56,7 +56,29 @@ export class StudentService {
   getStudentDetailsByRollnumber(roll:string) : Observable<any> {
     return this.http.get(`${this.baseUrl}/getstudentdetails/rollnumber/${roll}`);
   }
+   
+  uploadAssignment(file:FormData,aid:string,sid:string,title:string) : Observable<any> {
+    const header = {'Content-type': false};
+    return this.http.post(`${this.baseUrl}/assians/add/${aid}/?title=${title}&studid=${sid}`,file,{responseType:'text'});
+  }
 
+  getAllAssignmentDetails(srollno:string,subcode:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getassignmentdetails/${srollno}/${subcode}`);
+  }
+  leaveOff(sid:string,subcode:string) : Observable<any> {
+    return this.http.delete(`${this.baseUrl}/leaveoff/subcode/${subcode}/${sid}`,{responseType:'text'})
+
+  }
+
+  updatePhonenumber(studentid:string,phoneno:string) : Observable<any> {
+    const header = {'content-type': 'application/json'};
+    var obj = {
+      "phoneno":phoneno,
+      "id":studentid
+    }
+    const body = JSON.stringify(obj);
+    return this.http.put(`${this.baseUrl}/phonenumbers/sid`,body, {headers: header, responseType: 'text'})
+  }
 
 
 }

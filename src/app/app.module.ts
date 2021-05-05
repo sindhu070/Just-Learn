@@ -7,6 +7,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
+import { InlineEditComponent } from './inline-edit/inline-edit.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import { LoginStudentComponent } from './login-student/login-student.component';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +23,10 @@ import { TeacherWelcomeComponent } from './teacher-welcome/teacher-welcome.compo
 import { TeacherMainComponent } from './teacher-main/teacher-main.component';
 import { StudentMainComponent } from './student-main/student-main.component';
 import { AssignmentListComponent } from './assignment-list/assignment-list.component';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
+import { MyaccountComponent } from './myaccount/myaccount.component';
+import { MyaccountTeacherComponent } from './myaccount-teacher/myaccount-teacher.component';
+import { TeacherInlineEditComponent } from './teacher-inline-edit/teacher-inline-edit.component';
 const routes: Routes = [
   {
       path: '',
@@ -33,20 +38,23 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     GreetingsComponent,
-
     AppComponent,
     HomeComponent,
-
     RegisterStudentComponent,
     LoginStudentComponent,
     LoginTeacherComponent,
     RegisterTeacherComponent,
     StudentWelcomeComponent,
     DboxComponent,
+    InlineEditComponent,
     TeacherWelcomeComponent,
     TeacherMainComponent,
     StudentMainComponent,
     AssignmentListComponent,
+    DeleteConfirmationComponent,
+    MyaccountComponent,
+    MyaccountTeacherComponent,
+    TeacherInlineEditComponent,
 
   ],
   
@@ -65,7 +73,10 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   entryComponents: [
     DboxComponent,
-    GreetingsComponent
+    GreetingsComponent,
+    DeleteConfirmationComponent,
+    InlineEditComponent,
+    TeacherInlineEditComponent,
 
   ]
 })

@@ -34,6 +34,21 @@ export class LoginTeacherComponent implements OnInit {
   login(): void {
     this.login1.username=this.username;
     this.login1.password=this.password;
+    if(this.login1.password==undefined || this.login1.username==undefined){
+      let dialogRef = this.matDialog.open(GreetingsComponent,{
+        data: {
+        title:"Login Window",
+        message:"Please Fill all the Fields",
+        }
+      });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true'){
+          //alert("Successfully logged in");
+          location.reload();
+        }
+      });
+    } else {
     this.teacherservice.findTeacherByEmail(this.login1.username).subscribe(d=>{
       this.id = d.id;
    this.teacherservice.CheckLoginStudent(this.login1).subscribe(data1 => {
@@ -56,11 +71,27 @@ export class LoginTeacherComponent implements OnInit {
         }
       });
     } else {
-      alert("Check username and password");
+      let dialogRef = this.matDialog.open(GreetingsComponent,{
+        data: {
+        title:"Login",
+        message:data1,
+         username:this.username
+        }
+      
+      });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true'){
+          //alert("Successfully logged in");
+          location.reload();
+  
+        }
+      });
       this.router.navigate(['Teacherlogin']);
     }
   });
 });
+    }
   }
 
   home(){

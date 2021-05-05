@@ -10,13 +10,14 @@ import { StudentService } from '../student.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent  {
+  aboutus=false;
   constructor(private router:Router,private studentservice:StudentService,private matDialog:MatDialog) {}
 
   home(){
     this.router.navigate(['/']);
   }
   about() {
-    this.router.navigate(['/']);
+    this.aboutus=true;
   }
   contact(){
     this.router.navigate(['/']);

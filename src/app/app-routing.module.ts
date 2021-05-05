@@ -4,8 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AssignmentListComponent } from './assignment-list/assignment-list.component';
 import { HomeComponent } from './home/home.component';
+import { InlineEditComponent } from './inline-edit/inline-edit.component';
 import { LoginStudentComponent } from './login-student/login-student.component';
 import { LoginTeacherComponent } from './login-teacher/login-teacher.component';
+import { MyaccountTeacherComponent } from './myaccount-teacher/myaccount-teacher.component';
+import { MyaccountComponent } from './myaccount/myaccount.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import { RegisterTeacherComponent } from './register-teacher/register-teacher.component';
 import { StudentMainComponent } from './student-main/student-main.component';
@@ -24,6 +27,8 @@ const routes: Routes = [
     {path:'teachermain/:sid/:tid', component:TeacherMainComponent},
     {path:'studentmain/:sid/:stuid', component:StudentMainComponent},
     {path:'assignment/:aid/:tid', component:AssignmentListComponent},
+    {path:'myaccount/:id', component:MyaccountComponent},
+    {path:'teacheraccount/:tid', component:MyaccountTeacherComponent},
     {path:'', redirectTo: 'home', pathMatch:'full'}
     
 ];

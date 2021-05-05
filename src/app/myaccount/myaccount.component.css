@@ -1,4 +1,27 @@
-/* * {
+.form-1-box { padding-top: 30px; text-align: left; }
+button {
+    margin-right:10px;
+}
+h3{
+    margin-left: 10px;
+}
+
+.example-card {
+    margin-left: 10px;
+    max-width: 400px;
+    height:180px;
+  }
+  
+  .example-header-image {
+    background-image: url('C:/Users/admin/JL/Just-Learn/src/assets/images/teacher.png');
+    background-size: cover;
+  }
+
+.table {
+  font-size: 25px;
+}
+
+  /* * {
     margin:0;
     padding:0;
   }
@@ -12,8 +35,8 @@
     width:100%;
     margin:0% auto;
     background-color:black;
-    /* //font-size:15px; */
-    
+    font-size: 20px;
+  
   }
   #container1 > nav {
     width:100%;
@@ -31,7 +54,7 @@
   }
   #container1 > nav > ul {
     margin:0;
-
+  
     list-style-type:none;
     display:flex;
     position:absolute;
@@ -39,22 +62,20 @@
   /*   min-width:60%; */
   }
   #container1 > nav > ul > li {
-    
     line-height:60px;
     margin: 0 0px;
     padding:0;
     text-align:center;
     display:inline-block;
-    
+  
   /*   background-color:green; */
     min-width:120px;
   
-  } 
+  }
   #container1 > nav > ul > li > a {
     position:relative;
   /*   background-color:red; */
     margin: 0 20px;
-    font-size: 25px;
       color:white;
   }
   #container1 > nav > ul > li:hover {
@@ -71,12 +92,15 @@
   .dropdown:hover > a .fa-caret-down {
     display:none;
   }
-
+  a {
+    text-decoration:none;
+  
+  }
   
   #container1 > nav > ul > li > div {
     position:absolute;
     padding: 0 10px;
-    
+  
     background-color:black;
     display:none;
     background-color:aliceblue;
@@ -102,12 +126,9 @@
     background-color:aliceblue;
     transform:rotate(45deg);
   }
-  #sticky-footer {
-    background: black !important;
-    position: absolute;
-    top:7800000px;
-    height: 55px;
-    bottom: 2px;
-    width: 100%;
+  .borderDiv {
+    border: 2px solid #5e4e4e; 
+    padding: 15px;
+    margin-top: 2em;
+    color: black;
   }
-  

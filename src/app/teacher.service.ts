@@ -97,6 +97,19 @@ export class TeacherService {
     const body = JSON.stringify(obj);
     return this.http.put(`${this.baseUrl}/addmarks`,body,{headers: header, responseType: 'text'});
   }
+  deleteClassroom(subcode:string) {
+    return this.http.delete(`${this.baseUrl}/deleteclass/subcode/${subcode}`,{responseType: 'text'});
+  }
+
+  updatePhonenumber(teacherid:string,phoneno:string) : Observable<any> {
+    const header = {'content-type': 'application/json'};
+    var obj = {
+      "phonenumber":phoneno,
+      "id":teacherid
+    }
+    const body = JSON.stringify(obj);
+    return this.http.put(`${this.baseUrl}/phonenumberf/fid`,body, {headers: header, responseType: 'text'})
+  }
 }
 
 

@@ -184,11 +184,8 @@ export class TeacherMainComponent implements OnInit {
     home(){
       this.router.navigate(['tw',this.teacherid]);
     }
-    about() {
-      this.router.navigate(['/']);
-    }
-    contact(){
-      this.router.navigate(['/']);
+    myaccount() {
+      this.router.navigate(['teacheraccount',this.teacherid]);
     }
     logout() {
       this.router.navigate(['/']);
