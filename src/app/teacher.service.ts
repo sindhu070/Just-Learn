@@ -22,6 +22,7 @@ export class TeacherService {
   loginStudent(teacher1:teacher1) : Observable<any> {
     const header = {'content-type': 'application/json'};
     const body = JSON.stringify(teacher1);
+    console.log(body);
     return this.http.post(`${this.baseUrl}/savelogindetails/`, body, {headers: header, responseType: 'text'});
   }
 
@@ -71,11 +72,13 @@ export class TeacherService {
   openFile(fileid:string) :Observable<any> {
     return this.http.get(`${this.baseUrl}/files/stream/${fileid}`);
   }
-  saveAssignmentDetails(title:string,ques:string,subcode:string):Observable<any> {
+  saveAssignmentDetails(title:string,ques:string,total:number,subcode:string,date:Date):Observable<any> {
     const header = {'content-type': 'application/json'};
     var obj = {
       "assiname":title,
-      "assique":ques
+      "assique":ques,
+      "assimarks":total,
+      "deadline":date
       }
     const body = JSON.stringify(obj);
     return this.http.post(`${this.baseUrl}/saveAssignmentdetails/${subcode}`,body,{headers: header, responseType: 'text'});
@@ -93,6 +96,7 @@ export class TeacherService {
     var obj = {
       "id":ansid,
       "marks":marks
+      // "verified":true
       }
     const body = JSON.stringify(obj);
     return this.http.put(`${this.baseUrl}/addmarks`,body,{headers: header, responseType: 'text'});

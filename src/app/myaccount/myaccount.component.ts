@@ -6,6 +6,7 @@ import { InlineEditComponent } from '../inline-edit/inline-edit.component';
 import { student } from '../student';
 import { StudentWelcomeComponent } from '../student-welcome/student-welcome.component';
 import { StudentService } from '../student.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-myaccount',
@@ -15,7 +16,7 @@ import { StudentService } from '../student.service';
 export class MyaccountComponent implements OnInit {
   studentid:string;
   stu: student = new student();
-  constructor(private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private studentservice:StudentService) { }
+  constructor(private location: Location,private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private studentservice:StudentService) { }
 
   ngOnInit() {
     this.studentid = this.route.snapshot.paramMap.get('id');
@@ -37,6 +38,9 @@ export class MyaccountComponent implements OnInit {
   home(){
     this.router.navigate(['sw',this.studentid]);
     }
+    back() {
+      this.location.back();
+      }
     myaccount() {
      location.reload();
     }

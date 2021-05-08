@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog'
 
 import { StudentService } from '../student.service';
 import { GreetingsComponent } from '../greetings/greetings.component';
+import { GenerateOtpComponent } from '../generate-otp/generate-otp.component';
 
 @Component({
   selector: 'app-login-student',
@@ -112,15 +113,26 @@ login(): void {
 passwordm() {
   this.show = !this.show;
 }
+enterEmail() {
+  let dialogRef = this.matDialog.open(GenerateOtpComponent,{
+    height: '250px',
+    width: '400px',
+    data: {
+    title : "Verification"
+
+    }
+  });
+
+}
 
 home(){
   this.router.navigate(['/']);
 }
 about() {
-  this.router.navigate(['/']);
+  this.router.navigate(['/'], { fragment: 'about' });
 }
 contact(){
-  this.router.navigate(['/']);
+  this.router.navigate(['/'], { fragment: 'contact' });
 }
 rstu(){
   this.router.navigate(['Studentregister']);

@@ -126,7 +126,7 @@ body {
 			<li><a  (click)="ltea()">as Teacher</a></li>
 		  </ul>
 		  </div>
-		  <li><a  (click)="contact">Contact</a></li>
+		  <li><a  (click)="contact()">Contact</a></li>
 	  </ul>
 	</nav>
   </div>
@@ -138,7 +138,7 @@ body {
 <body Onload=document.forms[0].elements[0].focus();>
 
 <div class="signup-form">
-    <form action="" method="post">
+    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
 		<h2>Teacher Login</h2>
 		<hr>
         <div class="form-group">
@@ -148,9 +148,13 @@ body {
 						<i class="fa fa-envelope"></i>
 					</span>                    
 				</div>
-				<input type="email" class="form-control" name="temail" id="semail" placeholder="Email Address" required="required" [(ngModel)]="username" #temail="ngModel">
+				<input type="email" class="form-control" name="temail" id="semail" placeholder="Email Address"  [(ngModel)]="username" #temail="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 			</div>
         </div>
+		<div *ngIf="f.submitted && temail.invalid">
+			<p *ngIf="temail.errors?.required">Email is a required field!</p>
+			<p *ngIf="temail.errors?.pattern">This is not a valid Email!!</p>
+			</div>
 		<div class="form-group">
 			<div class="input-group">
 				<div class="input-group-prepend">
@@ -158,15 +162,16 @@ body {
 						<i class="fa fa-lock"></i>
 					</span>                    
 				</div>
-				<input [type]="show ? 'text' : 'password'" class="form-control" name="password" id="spassword" placeholder="Password" required="required"  [(ngModel)]="password" #spassword="ngModel"><button (click)="passwordm()" (click) = "toggle = !toggle">
-					<span>{{toggle ? 'Hide' : 'Show'}}</span></button>
+				<input type= 'password' class="form-control" name="password" id="spassword" placeholder="Password" required="required"  [(ngModel)]="password" #spassword="ngModel">
+					<!-- <span>{{toggle ? 'Hide' : 'Show'}}</span></button> -->
 			</div>
         </div>
 		<p id="sp" hidden>1.Password should be between 6 and 16 characters<br>2.It should contain special characters like !@#$%^&* <br>3.It should contain caps and small characters</p>
 		
       
 		<div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg" (click)="login()">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-lg" >Sign In</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a style="color:blue;" (click)="enterEmail()">Forgot password?</a>
         </div>
         <div class="text-center">Don't have an account? <button (click)="loadRegister()" class="btn btn-primary btn-lg">Register here</button></div>
     </form>

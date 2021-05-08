@@ -45,20 +45,69 @@ export class RegisterTeacherComponent {
     this.username = this.username.replace(this.re, '_');
     this.teacher1.username=this.email;
     this.teacher1.password=this.pass;
+    
     if(this.phoneno.length==10) {
     // tslint:disable-next-line: deprecation
+    this.teacherservice.loginStudent(this.teacher1).subscribe(data1 => {
+      console.log("na bondha" + data1);
+     if(data1==="Added successfully") {
     this.teacherservice.registerTeacher(this.teacher).subscribe(data => {
       console.log(data);
-   
-    this.teacherservice.loginStudent(this.teacher1).subscribe(data => {
-      console.log(data);
-    });
-      
-        alert('Registration Successful! Please login to continue!');
+      if(data==="Added successfully")
+      {
+        let dialogRef = this.matDialog.open(GreetingsComponent,{
+          data: {
+          title:"Registration",
+          message:"Registration Successful. Please login to continue",
+          }
+        
+        });
+        dialogRef.afterClosed().subscribe(result=> {
+          console.log(`dialog result:${result}`)
+          if(result === 'true'){
+            //alert("Successfully logged in");
+            this.router.navigate(['Teacherlogin']);
     
-        this.router.navigate(['Teacherlogin']);
+          }
+        });
+      } else {
+        let dialogRef = this.matDialog.open(GreetingsComponent,{
+          data: {
+          title:"Registration",
+          message:"Registration is not Successful",
+          }
+        
+        });
+        dialogRef.afterClosed().subscribe(result=> {
+          console.log(`dialog result:${result}`)
+          if(result === 'true'){
+            //alert("Successfully logged in");
+            location.reload();
+    
+          }
+        });
+      }
        
     }, error => console.log(error));
+  } else{
+    let dialogRef = this.matDialog.open(GreetingsComponent,{
+      data: {
+      title:"Registration",
+      message:data1,
+      }
+    
+    });
+    dialogRef.afterClosed().subscribe(result=> {
+      console.log(`dialog result:${result}`)
+      if(result === 'true'){
+        //alert("Successfully logged in");
+        location.reload();
+
+      }
+    });
+  }
+  });
+  
   } else{
       let dialogRef = this.matDialog.open(GreetingsComponent,{
         data: {
@@ -101,10 +150,10 @@ export class RegisterTeacherComponent {
     this.router.navigate(['/']);
   }
   about() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/'], { fragment: 'about' });
   }
   contact(){
-    this.router.navigate(['/']);
+    this.router.navigate(['/'], { fragment: 'contact' });
   }
   rstu(){
     this.router.navigate(['Studentregister']);

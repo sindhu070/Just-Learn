@@ -93,21 +93,29 @@
     <th>Assignment Question</th>
     <th>Upload Answers</th>
     <th>Marks Allocated</th>
+    <th>Deadline</th>
   </tr>
   <tr *ngFor="let a of assignments">
-    <td>{{a.assique}}</td>
-    <td><form class="form-inline">
-      <div class="form-group">
-          <input class="form-control form-control-lg"  type="file" (change)="onFileChanged($event)">&nbsp;&nbsp;
-          <button class="btn btn-danger" (click)="onUpload(a.id)" value="upload">Upload</button><br><br>
-          <tr *ngFor="let p1 of a.assians">
-            <a style="color:blue;" (click)="openFile(p1)">{{p1}}</a>
+    <td style="width:25%">{{a.assique}}</td>
+    <td><form class="form-inline" >
+      <div class="form-group" >
+        <div *ngIf="a.smarks==0 && (a.deadline>=latest_date)">
+          <input   class="form-control form-control-lg"   type="file" (change)="onFileChanged($event)">&nbsp;&nbsp;
+          <button  class="btn btn-danger"  (click)="onUpload(a.assiid)" value="upload">Upload</button><br><br>
+        </div>
+        <div id="dead" *ngIf="!(a.deadline>=latest_date)">
+          Deadline reached.
+        </div>
+          <tr *ngFor="let p1 of a.assians; index as i">
+            <a style="color:blue;" (click)="openFile(p1)">File {{i+1}}</a>
           
           </tr>
          <br><br><br>
         </div>
     </form></td>
     <td>{{a.smarks}} / {{a.assimarks}}</td>
+    <td>{{a.deadline}}</td>
+    <!-- <td>{{latest_date}}</td> -->
   </tr>
 </table>
 </div>

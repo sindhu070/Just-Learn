@@ -9,6 +9,7 @@ import { Stream } from '../Stream';
 import { StudentService } from '../student.service';
 import { SubjectService } from '../subject.service';
 import { TeacherService } from '../teacher.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-student-main',
@@ -26,6 +27,7 @@ export class StudentMainComponent implements OnInit {
    material = false;
    selectedFile: File;
    disp=true;
+   lol=true;
    assignment=false;
    message: string;
    title1 : string;
@@ -37,8 +39,11 @@ export class StudentMainComponent implements OnInit {
    rollnumber: string;
    marks:number;
   username:string;
+  disableTextbox=false;
+  today:Date;
   uploads:string[];
-  constructor(private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
+  latest_date:any;
+  constructor(private datePipe: DatePipe,private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
     this.subjectid = this.route.snapshot.paramMap.get('sid');
@@ -46,6 +51,9 @@ export class StudentMainComponent implements OnInit {
     this.studentservice.retreiveStudentDetailsById(this.studentid).subscribe(inform=>{
       this.rollnumber=inform.rollnumber;
       this.username=inform.username;
+      this.today=new Date();
+      this.latest_date =this.datePipe.transform(this.today, 'yyyy-MM-dd');
+
       
     })
     this.display();
@@ -74,37 +82,10 @@ export class StudentMainComponent implements OnInit {
     this.teacherservice.getJoinedStudents(this.subjectid).subscribe(info=>{
       console.log(info)
       this.sjarray=info;
-      console.log(info[0].rollnumber)
-      this.rollnumber=info.rollnumber;
+      //console.log(info.rollnumber)
+      //this.rollnumber=info.rollnumber;
     });
   }
-
- 
-  // public onFileChanged(event) {
-  //   //Select File
-  //   this.selectedFile = event.target.files[0];
-  // }
-  //Gets called when the user clicks on submit to upload the image
-// onUpload() {
-//     console.log(this.selectedFile);
-//     //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests. 
-// const uploadImageData = new FormData();
-// uploadImageData.append('file', this.selectedFile);
-// // this.http.post(`http://localhost:8080/jl/photos/add`, uploadImageData);
-// //Make a call to the Spring Boot Application to save the image
-// this.teacherservice.uploadMaterial(uploadImageData,this.title1,this.subjectid).subscribe((response) => {
-//   console.log(response)
-//   if (response === "Material Uploaded Successfully") {
-//     console.log('File uploaded successfully');
-//     location.reload();
-
-//   } else {
-//     console.log('File havenot uploaded successfully');
-//     location.reload();
-//   }
-// }
-// );
-// }
 display() : void {
 
 this.teacherservice.getFiles(this.subjectid).subscribe(data=>{
@@ -137,7 +118,7 @@ getAssignmentDetails() : void {
     {
       this.assignments=info;
       console.log(info)
-
+  
     });
 }
 public onFileChanged(event) {
@@ -167,6 +148,7 @@ if (response === "Assignment uploaded Successfully.") {
     console.log(`dialog result:${result}`)
     if(result === 'true'){
       //alert("Successfully logged in");
+      location.reload();
     }
   });
 

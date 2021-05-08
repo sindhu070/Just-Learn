@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 mat-dialog-container {
-    background-color:rgb(32, 179, 171) !important;
+    background-color:rgb(92, 158, 155) !important;
   }

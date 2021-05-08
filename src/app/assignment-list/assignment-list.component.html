@@ -40,6 +40,9 @@
 <br><br>
 
 <div  class="container">
+  <div class="text-left mb-6">
+    <button class="btn btn-danger btn-lg" (click)="back()"><i class="glyphicon glyphicon-chevron-left"></i> Back </button>
+  </div>&nbsp;&nbsp;
 <div>
 <table class="table">
   <tr>
@@ -50,16 +53,17 @@
       Assignment Answers
     </th>
     <th>
-      Assignemnt Marks
+      Assignment Marks
     </th>
   </tr>
-  <tr *ngFor="let a of asl;let i = index">
+  <tr *ngFor="let a of asl;" class="table-info" >
+    <ng-container *ngIf="!a.verified">
     <td>
       {{a.studid}}
     </td>
     <td >
-      <tr *ngFor="let p1 of a.studans">
-      <a style="color:blue;" (click)="openFile(p1)">{{p1}}</a>
+      <tr *ngFor="let p1 of a.studans;let i = index">
+      <a style="color:blue;" (click)="openFile(p1)">File {{i+1}}</a>
     
     </tr>
     </td>
@@ -69,8 +73,28 @@
     <td>
       <button type="submit" class="btn btn-info" (click)="submitMarks(a.id,a.assignmarks)">Submit Marks</button>
     </td>
+  </ng-container>
+  </tr>
+<tr><td>Verfied Student List</td><td></td><td></td></tr>
+  <tr *ngFor="let a of asl;" class="table-success">
+    <ng-container *ngIf="a.verified">
 
+    <td>
+      {{a.studid}}
+    </td>
+    <td >
+      <tr *ngFor="let p1 of a.studans;let i = index" >
+      <a style="color:blue;" (click)="openFile(p1)">File {{i+1}}</a>
     
+    </tr>
+    </td>
+    <!-- <td>
+      <input type="text" [disabled]='disableTextbox' class="form-control" id="marks-{{i}}" placeholder="Enter Marks" name="marks" [(ngModel)]="a.assignmarks" #marks="ngModel">
+    </td> -->
+    <td>
+     {{a.marks}} / {{a.totalmarks}}
+    </td>
+  </ng-container>
   </tr>
 </table>
 </div>

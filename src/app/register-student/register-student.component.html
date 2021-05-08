@@ -124,7 +124,7 @@ body {
 			<li><a  (click)="ltea()">as Teacher</a></li>
 		  </ul>
 		  </div>
-		  <li><a  (click)="contact">Contact</a></li>
+		  <li><a  (click)="contact()">Contact</a></li>
 	  </ul>
 	</nav>
   </div>
@@ -132,7 +132,7 @@ body {
 
 <body Onload=document.forms[0].elements[0].focus();>
 <div class="signup-form">
-    <form action="" method="post">
+	<form name="form" (ngSubmit)="f.form.valid && registerUser()" #f="ngForm" novalidate>
 		<h2>Student Registration</h2>
 		<hr>
         <div class="form-group">
@@ -152,9 +152,13 @@ body {
 						<i class="fa fa-envelope"></i>
 					</span>                    
 				</div>
-				<input type="email" class="form-control" name="semail" id="semail" placeholder="Email Address" required="required" [(ngModel)]="email" #semail="ngModel">
+				<input type="email" class="form-control" name="semail" id="semail" placeholder="Email Address" required="required" [(ngModel)]="email" #semail="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 			</div>
         </div>
+		<div *ngIf="f.submitted && semail.invalid">
+			<p *ngIf="semail.errors?.required">Email is a required field!</p>
+			<p *ngIf="semail.errors?.pattern">This is not a valid Email!!</p>
+		</div>
 		<div class="form-group">
 			<div class="input-group">
 				<div class="input-group-prepend">
@@ -165,6 +169,7 @@ body {
 				<input type="password" class="form-control" name="spass" id="spass" placeholder="Password" required="required" (focus)="onFocusEvent($event)" (focusout)="onFocusOutEvent($event)" [(ngModel)]="pass" #spass="ngModel">
 			</div>
         </div>
+		
 		<p id="tp" *ngIf="isShown">1.Password should be between 6 and 16 characters<br>2.It should contain special characters like !@#$%^&* <br>3.It should contain caps and small characters</p>
 		<div class="form-group">
 			<div class="input-group">
@@ -199,7 +204,7 @@ body {
           </div>
       
 		<div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg" (click)="registerUser()">Sign Up</button>
+            <button type="submit" class="btn btn-primary btn-lg" >Sign Up</button>
         </div>
 		<div class="text-center">Already have an account? <button class="btn btn-primary btn-lg" (click)="loadLogin()">Login here</button></div>
     </form>

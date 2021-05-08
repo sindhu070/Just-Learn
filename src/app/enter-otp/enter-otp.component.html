@@ -1,0 +1,15 @@
+
+<h2 mat-dialog-title>{{con1.title}}</h2>
+<mat-dialog-content>
+  {{con1.message}}
+  <form class="form">
+  <div class="form-group">
+    <input type="text" class="form-control" id="otp" placeholder="Enter The OTP"  name="otps" [(ngModel)]="otp" #otps="ngModel">
+  </div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="btn btn-success" mat-dialog-close mat-dialog-close="submit" (click)="submit(otp)">Submit</button>
+</mat-dialog-actions>
+

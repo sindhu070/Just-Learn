@@ -11,13 +11,15 @@ import { student } from '../student';
 import { StudentService } from '../student.service';
 import { SubjectService } from '../subject.service';
 import { TeacherService } from '../teacher.service';
-
+import { Spinkit } from 'ng-http-loader';
+import {DatePipe} from '@angular/common';
 @Component({
   selector: 'app-teacher-main',
   templateUrl: './teacher-main.component.html',
   styleUrls: ['./teacher-main.component.css']
 })
 export class TeacherMainComponent implements OnInit {
+  public spinkit = Spinkit;
    subjectid : string;
    studarray : string[];
    fileUrl;
@@ -35,13 +37,22 @@ export class TeacherMainComponent implements OnInit {
    sjarray:joinedStudents[];
    displayfiles:Stream[];
    assignments:Assignments[];
-  constructor(private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
+  constructor(private datePipe: DatePipe,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
     this.subjectid = this.route.snapshot.paramMap.get('sid');
     this.Uploadmaterial();
     this.display();
     this.teacherid = this.route.snapshot.paramMap.get('tid');
+    // var date:any = new Date();
+    // console.log(this.datePipe.transform(date,"yyyy-MM-dd"));
+    // var date1:any = new Date("2021-05-09");
+    // console.log(this.datePipe.transform(date1,"yyyy-MM-dd"));
+    // var diffDays:any = Math.floor((date1 - date) / (1000 * 60 * 60 * 24));
+    // console.log(diffDays)
+    // if(diffDays <=5 ){
+    //   console.log("hello")
+    // }
     }
     ch(si:number){
       if(si==0){
@@ -128,8 +139,8 @@ export class TeacherMainComponent implements OnInit {
       // });
     }
 
-    uploadAssignment(assititle:string,ques:string) : void {
-      this.teacherservice.saveAssignmentDetails(assititle,ques,this.subjectid).subscribe(data=>
+    uploadAssignment(assititle:string,ques:string,total:number,date:Date) : void {
+      this.teacherservice.saveAssignmentDetails(assititle,ques,total,this.subjectid,date).subscribe(data=>
         {
           if(data==="Added successfully"){
             let dialogRef = this.matDialog.open(GreetingsComponent,{

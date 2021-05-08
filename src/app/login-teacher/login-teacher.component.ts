@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { GenerateOtpComponent } from '../generate-otp/generate-otp.component';
 import { GreetingsComponent } from '../greetings/greetings.component';
 import { login } from '../login';
 import { teacher } from '../teacher';
@@ -34,6 +35,7 @@ export class LoginTeacherComponent implements OnInit {
   login(): void {
     this.login1.username=this.username;
     this.login1.password=this.password;
+    
     if(this.login1.password==undefined || this.login1.username==undefined){
       let dialogRef = this.matDialog.open(GreetingsComponent,{
         data: {
@@ -87,21 +89,30 @@ export class LoginTeacherComponent implements OnInit {
   
         }
       });
-      this.router.navigate(['Teacherlogin']);
     }
   });
 });
     }
   }
-
+  enterEmail() {
+    let dialogRef = this.matDialog.open(GenerateOtpComponent,{
+      height: '250px',
+      width: '400px',
+      data: {
+      title : "Verification"
+  
+      }
+    });
+  
+  }
   home(){
     this.router.navigate(['/']);
   }
   about() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/'], { fragment: 'about' });
   }
   contact(){
-    this.router.navigate(['/']);
+    this.router.navigate(['/'], { fragment: 'contact' });
   }
   rstu(){
     this.router.navigate(['Studentregister']);

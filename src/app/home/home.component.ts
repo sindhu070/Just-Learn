@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { StudentService } from '../student.service';
 
 @Component({
@@ -16,22 +17,50 @@ export class HomeComponent  {
   home(){
     this.router.navigate(['/']);
   }
-  about() {
-    this.aboutus=true;
+  about(){
+    this.router.navigate(['/'], { fragment: 'about' });
   }
-  contact(){
-    this.router.navigate(['/']);
+  contact() {
+    this.router.navigate(['/'], { fragment: 'contact' });
   }
-  rstu(){
-    this.router.navigate(['Studentregister']);
+  register(){
+    let dialogRef = this.matDialog.open(NavbarComponent,{
+      height: '200px',
+      width: '600px',
+      
+      data: {
+      title : "Registration",
+      b1:"Register as Student",
+      b2:"Register as Teacher"
+      }
+    });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true1'){
+          this.router.navigate(['Studentregister']);
+        } else if(result === 'false') {
+          this.router.navigate(['Teacherregister']);
+        }
+    });
   }
-  rtea(){
-    this.router.navigate(['Teacherregister']);
+ login(){
+    let dialogRef = this.matDialog.open(NavbarComponent,{
+      height: '200px',
+      width: '500px',
+      data: {
+      title : "Login",
+      b1:"Login as Student",
+      b2:"Login as Teacher"
+      }
+    });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true1'){
+          this.router.navigate(['Studentlogin']);
+        } else if(result === 'false') {
+          this.router.navigate(['Teacherlogin']);
+        }
+    });
   }
-  lstu(){
-    this.router.navigate(['Studentlogin']);
-  }
-  ltea(){
-    this.router.navigate(['Teacherlogin']);
-  }
+
 }

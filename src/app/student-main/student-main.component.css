@@ -121,4 +121,6 @@
     bottom: 2px;
     width: 100%;
   }
-  
+  #dead{
+    color:red;
+  }

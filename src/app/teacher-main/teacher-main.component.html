@@ -103,14 +103,20 @@
 <!-- <a [href]="fileUrl" download="text.txt">DownloadFile</a> -->
 
 <div *ngIf="assignment">
-  <form class="form-inline" action="/action_page.php">
+  <form class="form-inline">
     <div class="form-group">
       <input type="text" class="form-control" id="assigntitle" placeholder="Enter Title" name="atitle" [(ngModel)]="assigntitle" #atitle="ngModel">
     </div> &nbsp;&nbsp;&nbsp;
     <div class="form-group">
       <input type="text" class="form-control" id="question" placeholder="Enter Assignment Question Here" name="ques" [(ngModel)]="aquestion" #ques="ngModel">
     </div>&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-success" (click)="uploadAssignment(assigntitle,aquestion)">Upload Assignment</button>
+    <div class="form-group">
+    <input type="text" class="form-control" id="totmarks" placeholder="Enter Total marks" name="total" [(ngModel)]="totalmarks" #total="ngModel">
+  </div>&nbsp;&nbsp;&nbsp;
+  <div class="form-group">
+    <input  onfocus="this.type='date'"class="form-control" id="dateval" placeholder="Deadline Date" name="dead" [(ngModel)]="deadlinedate" #dead="ngModel">
+  </div>&nbsp;&nbsp;
+    <button type="submit" class="btn btn-success" (click)="uploadAssignment(assigntitle,aquestion,totalmarks,deadlinedate)">Upload Assignment</button>
   </form>
 </div>
 <div *ngIf="displayAssignment">
@@ -125,19 +131,22 @@
     <th>
       Details
     </th>
+    <th>Deadline</th>
+
   </tr>
   <tr *ngFor="let a of assignments">
-    <td>
+    <td style="width:15%">
       {{a.assiname}}
     </td>
-    <td>
+    <td style="width:33.33%">
       {{a.assique}}
     </td>
-    <td>
+    <td style="width:15%">
     <button class="btn btn-warning" (click)="showStudentAssignmentDetails(a.id)">Show Student List</button>
-    </td>
+    <ng-http-loader spinner="sk-wave"></ng-http-loader>
+  </td>
 
-    
+    <td style="width:20%">{{a.deadline}}</td>
   </tr>
 </table>
 </div>

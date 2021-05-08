@@ -20,7 +20,19 @@ export class DboxComponent implements OnInit {
       {
         console.log(data);
         if(data==='Updated successfully'){
-          this.router.navigate(['sw'],this.con.id)
+          let dialogRef = this.matDialog.open(GreetingsComponent,{
+            data: {
+              title:"Join Info",
+              username:this.con.username,
+              message:"You have Joined the class successfully!"
+            }
+          });
+          dialogRef.afterClosed().subscribe(result=> {
+            console.log(`dialog result:${result}`)
+            if(result === 'true'){
+              location.reload();
+            }
+          });
         } else {
           let dialogRef = this.matDialog.open(GreetingsComponent,{
             data: {
@@ -32,14 +44,14 @@ export class DboxComponent implements OnInit {
           dialogRef.afterClosed().subscribe(result=> {
             console.log(`dialog result:${result}`)
             if(result === 'true'){
-              this.router.navigate(['sw',this.con.id]);
+              location.reload();
             }
           });
         }
       });
   }
   close() : void {
-    this.router.navigate(['sw',this.con.id]);
+    location.reload();
   }
 
 }

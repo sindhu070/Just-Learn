@@ -1,0 +1,15 @@
+
+<h2 mat-dialog-title>{{con.title}}</h2>
+<mat-dialog-content>
+  {{con.message}}
+  <form class="form">
+  <div class="form-group">
+    <input type="text" class="form-control" id="username" placeholder="Enter Your Email to receive OTP"  name="emailid" [(ngModel)]="email" #emailid="ngModel">
+  </div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="btn btn-warning" mat-dialog-close mat-dialog-close="submit" (click)="generateOTP(email)">Generate OTP</button>
+</mat-dialog-actions>
+
