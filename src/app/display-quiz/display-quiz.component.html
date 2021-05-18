@@ -104,29 +104,33 @@
       {{q.question}}
       </h3>
       <div class="row text-left options">
+        <div *ngIf="q.options.length>=1">
         <div class="col-6" *ngFor="let option of q.options">
           <div class="option">
             <div *ngIf="q.type==2">
             <label class="font-weight-normal">
-              <input id="dead" type="checkbox" name="chck"  (change)="onSelect(q.correctanswers,q.options);" /> {{option}}
+              <input id="dead" type="checkbox" name="chck" value="{{ option }}" [(ngModel)]="option.checked" (change)="onSelect(option);" /> {{option}}
             </label>
           </div>
 
 
           <div *ngIf="q.type==1">
             <label class="font-weight-normal">
-              <input id="dead" type="radio" name="rad"  (change)="onSelect(q.correctanswers,q.options);" /> {{option}}
+              <input id="{{option}}" type="radio" name="rad" value="{{ option }}" [(ngModel)]="option.selected" (change)="onSelect(option);" /> {{option}}
             </label>
+          </div>
+          </div>
           </div>
 
           <div *ngIf="q.type==3">
-            <label class="font-weight-normal">
-              <input id="dead" type="text"  (change)="onSelect(q.correctanswers,q.options);" /> {{option}}
-            </label>
+      
+              <input class="form-control" type="text" name="textval" [(ngModel)]="textval1" #textval="ngModel" /> 
+      
           </div>
           </div>
-        </div>
+
       </div>
+ 
     </div>
     <hr />
     <div class="text-center">

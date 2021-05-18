@@ -55,7 +55,7 @@ export class DisplayQuizComponent implements OnInit {
   multipleans=false;
   blanks=false;
   radioSel: any;
-  constructor(private location: Location,private quizservice:quizService,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { this.getSelecteditem()}
+  constructor(private location: Location,private quizservice:quizService,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) {}
 
   ngOnInit() {
     this.quizid = this.route.snapshot.paramMap.get('quizid');
@@ -69,7 +69,7 @@ export class DisplayQuizComponent implements OnInit {
   loadQuiz() {
     this.quizservice.getquestiondetails(this.quizid).subscribe(res => {
       this.quizquestions = res;
-
+     console.log(this.quizquestions)
       this.pager.count = this.quizquestions.length;
       this.startTime = new Date();
       this.ellapsedTime = '00:00';
@@ -101,14 +101,14 @@ export class DisplayQuizComponent implements OnInit {
       this.quizquestions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
   }
 
-  onSelect(correctanswers:string[], options: string[]) {
-  
-    if (options.length>1) {
-      if(correctanswers.length==1){
+  onSelect(option:string[]) {
+    console.log(option)
+    // if (options.length>1) {
+    //   if(correctanswers.length==1){
 
-      }
-      // question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; 
-      }
+    //   }
+    //   // question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; 
+    //   }
     
 
     if (this.config.autoMove) {
