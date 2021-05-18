@@ -45,6 +45,7 @@
   <mat-tab label="Materials"></mat-tab><br>
   <mat-tab label="Assignments"></mat-tab><br>
   <mat-tab label="Student Details"></mat-tab><br>
+  <mat-tab label="Quizzes"></mat-tab><br>
 </mat-tab-group><br><br><br><br><br><br>
 <div *ngIf="material">
 <h3> Please upload Materials here</h3><br>
@@ -114,7 +115,7 @@
     <input type="text" class="form-control" id="totmarks" placeholder="Enter Total marks" name="total" [(ngModel)]="totalmarks" #total="ngModel">
   </div>&nbsp;&nbsp;&nbsp;
   <div class="form-group">
-    <input  onfocus="this.type='date'"class="form-control" id="dateval" placeholder="Deadline Date" name="dead" [(ngModel)]="deadlinedate" #dead="ngModel">
+    <input  onfocus="this.type='date'" class="form-control" id="dateval" placeholder="Deadline Date" name="dead" [(ngModel)]="deadlinedate" #dead="ngModel">
   </div>&nbsp;&nbsp;
     <button type="submit" class="btn btn-success" (click)="uploadAssignment(assigntitle,aquestion,totalmarks,deadlinedate)">Upload Assignment</button>
   </form>
@@ -151,5 +152,68 @@
 </table>
 </div>
 
+
+<div *ngIf="quizvalue">
+  <div class="container">
+    <div class="text-right mb-6">
+      <!-- <button class="btn btn-success btn-lg" (click)="createquiz()">Upload New Quiz<i class="glyphicon glyphicon-plus-sign"></i></button> -->
+      <button type="button" class="btn btn-info btn-lg btn-block" (click)="createquiz()">Upload New Quiz <i class="glyphicon glyphicon-plus-sign"></i></button>
+    </div><br>
+    <div *ngIf="showquizform">
+      <h3>Quiz Details</h3><br>
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="subname" placeholder="Enter Quiz name" name="quizname" [(ngModel)]="quizname1" #quizname="ngModel">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <input class="form-control" placeholder="Quiz Start Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="quizstarttime" [(ngModel)]="quizstarttime1" #quizstarttime="ngModel" id="example-datetime-local-input">
+        </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-sm-6">
+            <input class="form-control" placeholder="Quiz End Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="quizendtime" [(ngModel)]="quizendtime1" #quizendtime="ngModel" id="example-datetime-local-input">
+          </div>
+          </div>
+      <div class="form-group">
+        <div class="col-sm-6">          
+          <input type="text" class="form-control" id="ysec" placeholder="Enter Total Quiz Time" name="time" [(ngModel)]="time1" #marks="ngModel">
+        </div>
+      </div>
+      <div class="form-group">        
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success" (click)="submitquizdetails()">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <table class="table">
+    <tr>
+      <th>
+        Quiz Name
+      </th>
+      <th>
+       Actions
+      </th>
+      <th>
+        Info
+      </th>
+    </tr>
+    <tr *ngFor="let q of quizarray">
+    <td>
+      <a>{{q.name}}</a>
+      </td>
+      <td>
+      <button class="btn btn-success" (click)="openquiz(q.id)">Open Quiz</button>
+    </td>
+    <td>
+      <button class="btn btn-success">View Student details</button>
+    </td>
+  </tr>
+  </table>
+  </div>
+</div>
 
 </div>

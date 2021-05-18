@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, matTabsAnimations } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Assignments } from '../Assignment';
@@ -13,6 +13,8 @@ import { SubjectService } from '../subject.service';
 import { TeacherService } from '../teacher.service';
 import { Spinkit } from 'ng-http-loader';
 import {DatePipe} from '@angular/common';
+import { Quiz } from '../Quiz';
+import { quizService } from '../quiz.service';
 @Component({
   selector: 'app-teacher-main',
   templateUrl: './teacher-main.component.html',
@@ -25,6 +27,8 @@ export class TeacherMainComponent implements OnInit {
    fileUrl;
    sj:joinedStudents = new joinedStudents();
    stu=false;
+   showquizform=false;
+   quizvalue=false;
    assignment=false;
    material = false;
    displayAssignment=false;
@@ -37,12 +41,21 @@ export class TeacherMainComponent implements OnInit {
    sjarray:joinedStudents[];
    displayfiles:Stream[];
    assignments:Assignments[];
-  constructor(private datePipe: DatePipe,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
+   q:Quiz = new Quiz();
+   quizarray:any;
+   quizname1:string;
+   marks1:number;
+   time1:number;
+   quizid:string;
+   quizstarttime1:Date;
+   quizendtime1:Date;
+  constructor(private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
     this.subjectid = this.route.snapshot.paramMap.get('sid');
     this.Uploadmaterial();
     this.display();
+    this.getquizdetails();
     this.teacherid = this.route.snapshot.paramMap.get('tid');
     // var date:any = new Date();
     // console.log(this.datePipe.transform(date,"yyyy-MM-dd"));
@@ -62,13 +75,16 @@ export class TeacherMainComponent implements OnInit {
        
       } else if(si==2){
         this.stuDetails();
-       
+      }
+      else if(si==3){
+        this.quiz();
       }
     }
 
     stuDetails() : void {
       this.stu=true;
       this.material=false;
+      this.quizvalue=false;
       this.displayAssignment=false;
       this.disp=false;
       this.assignment=false;
@@ -82,6 +98,7 @@ export class TeacherMainComponent implements OnInit {
       this.stu=false;
       this.material=true;
       this.disp=true;
+      this.quizvalue=false;
       this.assignment=false;
       this.displayAssignment=false;
     }
@@ -90,6 +107,7 @@ export class TeacherMainComponent implements OnInit {
       this.stu=false;
       this.material=false;
       this.disp=false;
+      this.quizvalue=false;
       this.assignment=true;
       this.displayAssignment=true;
       this.getAssignmentDetails();
@@ -174,6 +192,54 @@ export class TeacherMainComponent implements OnInit {
 
     }
 
+    quiz(){
+      this.stu=false;
+      this.material=false;
+      this.displayAssignment=false;
+      this.disp=false;
+      this.assignment=false;
+      this.quizvalue=true;
+
+    }
+    createquiz() {
+      this.showquizform=true;
+    }
+    submitquizdetails() {
+      this.q.id=this.quizid;
+      this.q.questions=[];
+      this.q.name=this.quizname1;
+      this.q.time=this.time1;
+      this.q.subcode=this.subjectid;
+      this.q.startdate=this.quizstarttime1;
+      this.q.enddate=this.quizendtime1;
+      console.log(this.q);
+      this.quizservice.savequizdetails(this.q).subscribe(data=>{
+        console.log(data);
+       if(data==='Quiz Added successfully'){
+        let dialogRef = this.matDialog.open(GreetingsComponent,{
+          data: {
+          title:"Quiz",
+          message:"Quiz uploaded succesfully",
+          }
+        });
+        dialogRef.afterClosed().subscribe(result=> {
+          console.log(`dialog result:${result}`)
+          if(result === 'true'){
+           location.reload();
+          }
+        });
+       }
+      });
+    }
+    openquiz(qid:string) {
+      this.router.navigate(['uploadquiz',qid,this.teacherid]);
+    }
+    getquizdetails(){
+      this.quizservice.getquizdetails(this.subjectid).subscribe(info=>{
+        this.quizarray=info;
+        console.log(info);
+      });
+    }
 
 
 

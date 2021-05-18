@@ -45,6 +45,7 @@
   <mat-tab label="Materials"></mat-tab><br>
   <mat-tab label="Assignments"></mat-tab><br>
   <mat-tab label="Student Details"></mat-tab><br>
+  <mat-tab label="Quizzes"></mat-tab><br>
 </mat-tab-group><br><br><br><br><br><br>
 
 <div *ngIf="disp">
@@ -120,4 +121,38 @@
 </table>
 </div>
 <!-- <a [href]="fileUrl" download="text.txt">DownloadFile</a> -->
+<div *ngIf="displayquizlist">
+  <table class="table">
+    <tr>
+      <th>
+        Quiz Name
+      </th>
+      <th>
+        Total Marks
+      </th>
+      <th>
+       Total Time
+      </th>
+      <th>
+       Actions
+      </th>
+
+    </tr>
+
+    <tr *ngFor="let q of quizarray">
+      <ng-container *ngIf="q.display">
+    <td>
+      <a>{{q.name}}</a>
+      </td>
+      <td>{{q.marks}}</td>
+      <td>{{q.time}}</td>
+      <td>
+      <button class="btn btn-success" (click)="openquiz(q.id,q.startdate,q.enddate)">Open Quiz</button>
+    </td>
+  </ng-container>
+  </tr>
+
+  </table>
+  </div>
+
 </div>

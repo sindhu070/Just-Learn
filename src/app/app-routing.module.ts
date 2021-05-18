@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AssignmentListComponent } from './assignment-list/assignment-list.component';
+import { DisplayQuizComponent } from './display-quiz/display-quiz.component';
 import { HomeComponent } from './home/home.component';
 import { InlineEditComponent } from './inline-edit/inline-edit.component';
 import { LoginStudentComponent } from './login-student/login-student.component';
@@ -15,6 +16,7 @@ import { StudentMainComponent } from './student-main/student-main.component';
 import { StudentWelcomeComponent } from './student-welcome/student-welcome.component';
 import { TeacherMainComponent } from './teacher-main/teacher-main.component';
 import { TeacherWelcomeComponent } from './teacher-welcome/teacher-welcome.component';
+import { UploadQuizComponent } from './upload-quiz/upload-quiz.component';
 
 const routes: Routes = [
     {path:'Studentregister', component:RegisterStudentComponent},
@@ -29,6 +31,8 @@ const routes: Routes = [
     {path:'assignment/:aid/:tid', component:AssignmentListComponent},
     {path:'myaccount/:id', component:MyaccountComponent},
     {path:'teacheraccount/:tid', component:MyaccountTeacherComponent},
+    {path:'uploadquiz/:quizid/:tid', component:UploadQuizComponent},
+    {path:'seequiz/:quizid/:sid', component:DisplayQuizComponent},
     {path:'', redirectTo: 'home', pathMatch:'full'}
     
 ];

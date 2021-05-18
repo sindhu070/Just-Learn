@@ -4,6 +4,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card'
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatRadioModule} from '@angular/material';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -33,6 +34,9 @@ import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 import { EnterOtpComponent } from './enter-otp/enter-otp.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DatePipe } from '@angular/common';
+import { UploadQuizComponent } from './upload-quiz/upload-quiz.component';
+import { DisplayQuestionTypeComponent } from './display-question-type/display-question-type.component';
+import { DisplayQuizComponent } from './display-quiz/display-quiz.component';
 
 
 const routes: Routes = [
@@ -67,6 +71,9 @@ const routes: Routes = [
     GenerateOtpComponent,
     EnterOtpComponent,
     NavbarComponent,
+    UploadQuizComponent,
+    DisplayQuestionTypeComponent,
+    DisplayQuizComponent,
 
   ],
   
@@ -80,6 +87,7 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     NgHttpLoaderModule,
+    MatRadioModule,
     AppRoutingModule,RouterModule.forRoot(routes,{
       anchorScrolling: 'enabled'
  })
@@ -96,6 +104,7 @@ const routes: Routes = [
     EnterOtpComponent,
     ResetPasswordComponent,
     NavbarComponent,
+    DisplayQuestionTypeComponent
 
   ]
 })

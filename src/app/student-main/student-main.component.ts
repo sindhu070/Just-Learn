@@ -9,7 +9,8 @@ import { Stream } from '../Stream';
 import { StudentService } from '../student.service';
 import { SubjectService } from '../subject.service';
 import { TeacherService } from '../teacher.service';
-import {DatePipe} from '@angular/common';
+import {DatePipe, formatDate} from '@angular/common';
+import { quizService } from '../quiz.service';
 
 @Component({
   selector: 'app-student-main',
@@ -23,6 +24,7 @@ export class StudentMainComponent implements OnInit {
    fileUrl;
    sj:joinedStudents = new joinedStudents();
    stu=false;
+   quizarray:any;
    what=false;
    material = false;
    selectedFile: File;
@@ -43,7 +45,11 @@ export class StudentMainComponent implements OnInit {
   today:Date;
   uploads:string[];
   latest_date:any;
-  constructor(private datePipe: DatePipe,private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
+  displayquizlist=false;
+  jstoday: string;
+  startdates:any;
+  enddates: string;
+  constructor(private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
     this.subjectid = this.route.snapshot.paramMap.get('sid');
@@ -53,9 +59,10 @@ export class StudentMainComponent implements OnInit {
       this.username=inform.username;
       this.today=new Date();
       this.latest_date =this.datePipe.transform(this.today, 'yyyy-MM-dd');
+      this.getquizdetails();
 
       
-    })
+    });
     this.display();
   }
   ch(si:number){
@@ -65,7 +72,8 @@ export class StudentMainComponent implements OnInit {
       this.assignDisplay()
     } else if(si==2){
       this.stuDetails();
-     
+    } else if(si==3){
+      this.quiz();
     }
   }
  Seematerial() {
@@ -99,6 +107,23 @@ console.log(data);
 });
 }
 
+quiz(){
+  this.stu=false;
+  this.material=false;
+  this.displayquizlist=true;
+  this.disp=false;
+  this.assignment=false;
+
+
+}
+getquizdetails(){
+  this.quizservice.getquizdetails(this.subjectid).subscribe(info=>{
+
+    this.quizarray=info;
+    console.log(this.startdates)
+    console.log(info);
+  });
+}
 openFile(fileid:string) : void {
 window.open(`http://localhost:8080/jl/files/stream/${fileid}`, '_blank');
 // this.teacherservice.openFile(fileid).subscribe(fileinfo=>{
@@ -160,6 +185,35 @@ if (response === "Assignment uploaded Successfully.") {
 
 });
 }
+openquiz(quizid:string,startdate:Date,enddate:Date){
+  let today=Date.now();
+  this.startdates = formatDate(startdate, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0000');
+  this.enddates=formatDate(enddate, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0000');
+  this.jstoday=formatDate(today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
+  // alert(this.startdates);
+  // alert(this.enddates);
+  // alert(this.jstoday)
+  if(this.jstoday<=this.enddates && this.jstoday>=this.startdates){
+    this.router.navigate(['seequiz',quizid,this.studentid]);
+  } else {
+    let dialogRef = this.matDialog.open(GreetingsComponent,{
+      data: {
+      title:"Upload",
+      message:"Cannot attempt this quiz rightnow! Time's up",
+       username:this.username
+      }
+    
+    });
+    dialogRef.afterClosed().subscribe(result=> {
+      console.log(`dialog result:${result}`)
+      if(result === 'true'){
+        //alert("Successfully logged in");
+        location.reload();
+      }
+    });
+  }
+}
+
 
 
 

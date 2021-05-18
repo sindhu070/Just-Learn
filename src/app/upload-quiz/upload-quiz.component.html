@@ -1,0 +1,248 @@
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div id="container1">
+  <nav>
+    <div id="logo">
+     Just-Learn
+    </div>
+    <ul>
+      <li><a (click)="home()">Home</a></li>
+       <li><a (click)="myaccount()">My Account</a></li>
+     <!-- <li><a (click)="contact()">Contact</a></li> -->
+      <!-- <li class="dropdown" onmouseover="hover(this);" onmouseout="out(this);"><a href="#">Register &nbsp;<i class="fa fa-caret-down"></i></a>
+        <div class="dd">
+          <div id="up_arrow"></div>
+        <ul>
+          <li><a href="#">as Student</a></li>
+          <li><a href="#">as Teacher</a></li>
+        </ul>
+        </div>
+      </li> -->
+      <li class="dropdown"><a (click)="logout()">Log Out <i class="glyphicon glyphicon-log-out"></i> </a></li>
+       <!-- <div class="dd">
+         <div id="u_a_c"><div id="up_arrow"></div></div>
+        <ul>
+          <li><a href="#">as Student</a></li>
+          <li><a href="#">as Teacher</a></li>
+        </ul>
+        </div> -->
+        
+    </ul>
+  </nav>
+</div>
+<br><br>
+
+<div class="container">
+  <div class="text-right mb-6">
+    <button class="btn btn-primary btn-lg" (click)="displayquestiontypes()" >Add question <i class="glyphicon glyphicon-plus-sign"></i></button>
+  </div>
+  <div class="text-left mb-6">
+    <button class="btn btn-danger" (click)="back()"><i class="glyphicon glyphicon-chevron-left"></i> Back </button>
+  </div>
+  <br>
+
+  <!--Radio buttons -->
+  <div *ngIf="radio" class="radbut">
+    <h2 style="color:blue">Select Question type</h2><br>
+    <form>
+      <label class="radio-inline">
+        <input type="radio" checked value="one" name="radiouser" [(ngModel)]="user" #radiouser="ngModel" (click)="single()"> Single Choice
+      </label>&nbsp;
+      <label class="radio-inline">
+        <input type="radio" value="two" name="radiouser" [(ngModel)]="user" #radiouser="ngModel" (click)="multiple()"> Multiple Choice
+      </label>&nbsp;
+      <label class="radio-inline">
+        <input type="radio" value="three" name="radiouser" [(ngModel)]="user" #radiouser="ngModel" (click)="blank()"> Fill in the blank
+      </label>&nbsp;
+    </form>
+  </div>
+<br><br><br><br><hr>
+  <!--Single Choice -->
+  <div *ngIf="singleques">
+
+    <form>
+      <div class="form-group">
+        <textarea class="form-control" rows="5" id="comment" placeholder="Enter Question here" name="question"  [(ngModel)]="question1" #question="ngModel" ></textarea>
+      </div>
+      <h4 style="color:red">Please choose the Right Answer as well.<sup>*</sup></h4>
+      <div class="radio">
+        <input type="radio" name="optradio" value="one" [(ngModel)]="optrad" #optradio="ngModel">
+        <div class="col-sm-6">          
+          <input type="text" class="form-control" id="ysec" placeholder="Option 1" name="option1" [(ngModel)]="opt1" #option1="ngModel">
+        </div>
+      </div><br><br><br>
+      <div class="radio">
+        <input type="radio" name="optradio" value="two" [(ngModel)]="optrad" #optradio="ngModel">
+        <div class="col-sm-6">          
+          <input type="text" class="form-control" id="ysec" placeholder="Option 2" name="option2" [(ngModel)]="opt2" #option2="ngModel">
+        </div>
+      </div>
+      <br><br><br>
+      <div class="radio">
+       <input type="radio" name="optradio" value="three" [(ngModel)]="optrad" #optradio="ngModel">
+       <div class="col-sm-6">          
+        <input type="text" class="form-control" id="ysec" placeholder="Option 3" name="option3" [(ngModel)]="opt3" #option3="ngModel">
+      </div>
+      </div><br><br><br>
+      <div class="radio">
+        <input type="radio" name="optradio" value="four" [(ngModel)]="optrad" #optradio="ngModel">
+        <div class="col-sm-6">          
+         <input type="text" class="form-control" id="ysec" placeholder="Option 4" name="option4" [(ngModel)]="opt4" #option4="ngModel">
+       </div>
+       </div><br><br><br><br>
+       <div class="form-group col-md-4">
+       <select id="inputState" class="form-control" name="selectedmark" [(ngModel)]="selectedmark1" #selectedmark="ngModel">
+        <option>Select Marks</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+      </select>
+    </div><br><br><br><br><br>
+       <!-- <div *ngIf="optionnew">
+        <div class="radio">
+          <input type="radio" name="optradio">
+          <div class="col-sm-6">          
+           <input type="text" class="form-control" id="ysec" placeholder="option {{enum_details[0]}}" name="option4" [(ngModel)]="opt4" #option2="ngModel">
+         </div>
+         </div>
+         <br><br><br>
+      </div> -->
+       <button class="btn btn-success" (click)="addquestion()">Add Question</button>
+    </form>
+  </div>
+
+    <!--Multiple choice -->
+    <div *ngIf="multiques">
+      <form>
+        <div class="form-group">
+          <textarea class="form-control" rows="5" id="comment" placeholder="Enter Question here" name="question"  [(ngModel)]="question1" #question="ngModel" ></textarea>
+        </div>
+        <h4 style="color:red">Please choose the Right Answer as well.<sup>*</sup></h4>
+        <div class="checkbox">
+          <input type="checkbox" name="optc1" value="one" [(ngModel)]="optcheck1" #optc1="ngModel">
+          <div class="col-sm-4">      
+            <input type="text" class="form-control" id="ysec" placeholder="Option 1" name="option1" [(ngModel)]="opt1" #option1="ngModel">
+        </div>
+        </div><br><br><br><br>
+        <div class="checkbox">
+          <input type="checkbox" name="optc2" value="two" [(ngModel)]="optcheck2" #optc2="ngModel">
+          <div class="col-sm-4">      
+            <input type="text" class="form-control" id="ysec" placeholder="Option 2" name="option2" [(ngModel)]="opt2" #option2="ngModel">
+        </div>
+        </div><br><br><br><br>
+        <div class="checkbox">
+          <input type="checkbox" name="optc3" value="three" [(ngModel)]="optcheck3" #optc3="ngModel">
+          <div class="col-sm-4">      
+            <input type="text" class="form-control" id="ysec" placeholder="Option 3" name="option3" [(ngModel)]="opt3" #option3="ngModel">
+        </div>
+        </div><br><br><br><br>
+        <div class="checkbox">
+          <input type="checkbox" name="optc4" value="four" [(ngModel)]="optcheck4" #optc4="ngModel">
+          <div class="col-sm-4">      
+            <input type="text" class="form-control" id="ysec" placeholder="Option 4" name="option4" [(ngModel)]="opt4" #option4="ngModel">
+        </div>
+        </div>
+      <br><br><br><br>
+      <div class="form-group col-md-4">
+        <select id="inputState" class="form-control" name="selectedmark" [(ngModel)]="selectedmark1" #selectedmark="ngModel">
+          <option>Select Marks</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+      </div>
+      <br><br><br><br><br><br>
+         <!-- <div *ngIf="optionnew">
+          <div class="radio">
+            <input type="radio" name="optradio">
+            <div class="col-sm-6">          
+             <input type="text" class="form-control" id="ysec" placeholder="option {{enum_details[0]}}" name="option4" [(ngModel)]="opt4" #option2="ngModel">
+           </div>
+           </div>
+           <br><br><br>
+        </div> -->
+         <button class="btn btn-success" (click)="addmultiplequestion()">Add Question</button>
+      </form>
+    </div>
+    
+      <!--Blank Choice -->
+      <div *ngIf="blankques">
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" rows="5" id="comment" placeholder="Enter Question here" name="question"  [(ngModel)]="question1" #question="ngModel" ></textarea>
+          </div>
+          <h4 style="color:red">Please enter the Right Answer as well.<sup>*</sup></h4>
+          <div class="col-sm-6">      
+            <input type="text" class="form-control" id="ysec" placeholder="Enter Right Answer" name="blank1" [(ngModel)]="blank2" #blank1="ngModel">
+        </div><br><br><br><br>
+        <div class="form-group col-md-4">
+          <select id="inputState" class="form-control" name="selectedmark" [(ngModel)]="selectedmark1" #selectedmark="ngModel">
+            <option>Select Marks</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <br><br><br><br><br><br>
+           <!-- <div *ngIf="optionnew">
+            <div class="radio">
+              <input type="radio" name="optradio">
+              <div class="col-sm-6">          
+               <input type="text" class="form-control" id="ysec" placeholder="option {{enum_details[0]}}" name="option4" [(ngModel)]="opt4" #option2="ngModel">
+             </div>
+             </div>
+             <br><br><br>
+          </div> -->
+           <button class="btn btn-info" (click)="addblankquestion()">Add Question</button>
+        </form>
+      </div>
+
+  <!--Display All added questions -->
+  <div *ngIf="displayquestions">
+    <table class="table">
+      <tr *ngFor="let a of qd1;let i = index">
+        <td>{{i+1}}) {{a.question}}
+          <ol type="a">
+          <li *ngFor="let o of a.options">
+          {{o}}
+          </li>
+        </ol>
+        <p>Correct Answer:<li *ngFor="let c of a.correctanswers" style="color:green">{{c}}</li></p>
+
+      </td>
+      <td><button class="btn btn-danger" (click)="deletequestion(a.id)">Delete Question</button></td>
+      </tr>
+    </table>
+  </div><br>
+  <div *ngIf="disp">
+  <button class="btn btn-success" (click)="submitquiz()">Submit Quiz</button>
+</div>
+</div>

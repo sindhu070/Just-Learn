@@ -1,0 +1,30 @@
+
+<h2 mat-dialog-title>{{information.title}}</h2>
+<mat-dialog-content>Hi!!</mat-dialog-content>
+<mat-dialog-actions>
+
+  <button class="btn btn-success" mat-dialog-close="true" (click)="close()">Close</button>
+</mat-dialog-actions>
+
+<div class="container">
+  <div *ngIf="multiple">
+    <form>
+      <div class="form-group">
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+      </div>
+        <div class="checkbox">
+        <label><input type="checkbox" value="">Option 1</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" value="" placeholder="option">Option 2</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" value="" >Option 3</label>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" value="" >Option 4</label>
+      </div>
+    </form>
+  </div>
+</div>
+

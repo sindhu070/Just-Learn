@@ -1,17 +1,18 @@
-* {
+/* * {
     margin:0;
     padding:0;
   }
   body {
     background-color:black;
     font-family: 'Raleway', sans-serif;
-  }
+  } */
   
   #container1 {
     position:relative;
-    width:80%;
+    width:100%;
     margin:0% auto;
     background-color:black;
+    /* //font-size:15px; */
     
   }
   #container1 > nav {
@@ -70,10 +71,7 @@
   .dropdown:hover > a .fa-caret-down {
     display:none;
   }
-  a {
-    text-decoration:none;
-  
-  }
+
   
   #container1 > nav > ul > li > div {
     position:absolute;
@@ -107,9 +105,15 @@
   #sticky-footer {
     background: black !important;
     position: absolute;
-    top:23000px;
+    top:7800000px;
     height: 55px;
     bottom: 2px;
     width: 100%;
+  }
+  .table {
+    font-size:25px;
+  }
+  ol{
+    list-style-type: none;
   }
   
