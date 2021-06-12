@@ -44,7 +44,7 @@ closeResult: string;
   join() : void
   {
     let dialogRef = this.matDialog.open(DboxComponent,{
-      height: '200px',
+      height: '250px',
       width: '400px',
       data: {
       title : "Join",

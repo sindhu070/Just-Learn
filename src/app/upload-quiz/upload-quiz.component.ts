@@ -102,6 +102,20 @@ displayquestions=false;
     let correctanswers=[];
     this.qd.options=options;
     this.qd.qid=this.quizid;
+    if(this.optrad === undefined){
+      let dialogRef = this.matDialog.open(GreetingsComponent,{
+        data: {
+        title:"Quiz",
+        message:"Please Choose right option",
+        }
+      });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true'){
+            //
+        }
+      });
+    } else{
      if(this.optrad === "one"){
        correctanswers.push(this.opt1);
      } else if (this.optrad === "two") {
@@ -131,6 +145,7 @@ displayquestions=false;
       }
      });
   }
+}
 }
 
   addmultiplequestion(){
@@ -164,6 +179,21 @@ displayquestions=false;
       }
   });
   console.log(ar1);
+  if(ar1.length==0){
+    let dialogRef = this.matDialog.open(GreetingsComponent,{
+      data: {
+      title:"Quiz",
+      message:"Please enter the right answer of this question",
+      }
+    });
+    dialogRef.afterClosed().subscribe(result=> {
+      console.log(`dialog result:${result}`)
+      if(result === 'true'){
+          //
+      }
+    });
+  
+  } else {
   for(var val of ar1){
     console.log(val)
     correctanswers.push(options[val-1])
@@ -186,6 +216,7 @@ displayquestions=false;
     }
   });
   }
+}
 }
   addblankquestion(){
     if(this.question1===undefined || this.blank2===undefined || this.selectedmark1===undefined){
@@ -213,6 +244,21 @@ displayquestions=false;
     this.qd.marks=this.selectedmark1;
     let arr2 = options.filter(i => i !== null); 
     console.log(arr2);
+    if(this.blank2 == undefined){
+        let dialogRef = this.matDialog.open(GreetingsComponent,{
+          data: {
+          title:"Quiz",
+          message:"Please give right answer",
+          }
+        });
+        dialogRef.afterClosed().subscribe(result=> {
+          console.log(`dialog result:${result}`)
+          if(result === 'true'){
+              //
+          }
+        });
+       
+    } else{
     correctanswers.push(this.blank2);
     this.qd.correctanswers=correctanswers;
     this.qd.options=arr2;
@@ -232,6 +278,7 @@ displayquestions=false;
         });
       }
     });
+  }
   }
 }
 
@@ -294,7 +341,6 @@ displayquestions=false;
 
 
 
-
   submitquiz(){
     this.quizservice.submitquiz(this.quizid).subscribe(info=>{
         if(info==="Updated successfully"){
@@ -325,5 +371,7 @@ displayquestions=false;
   logout() {
     this.router.navigate(['/']);
   }
+
+
 
 }

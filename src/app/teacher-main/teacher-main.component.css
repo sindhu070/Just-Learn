@@ -1,9 +1,9 @@
 ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
     min-width: 10!important;
     padding: 20px!important;
-    margin: 3px!important;
+    margin: 0px!important;
     font-size: 30px!important;
-    padding-right:70px !important;
+    padding-right:30px !important;
     color:black !important;
    }
 

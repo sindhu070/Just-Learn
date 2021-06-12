@@ -12,9 +12,10 @@ import { StudentService } from '../student.service';
 import { SubjectService } from '../subject.service';
 import { TeacherService } from '../teacher.service';
 import { Spinkit } from 'ng-http-loader';
-import {DatePipe} from '@angular/common';
+import {DatePipe, formatDate} from '@angular/common';
 import { Quiz } from '../Quiz';
 import { quizService } from '../quiz.service';
+import { VideoService } from '../VideoService';
 @Component({
   selector: 'app-teacher-main',
   templateUrl: './teacher-main.component.html',
@@ -37,6 +38,7 @@ export class TeacherMainComponent implements OnInit {
    message: string;
    title1 : string;
    teacherid:string;
+   v: any;
    fileContent: string = '';
    sjarray:joinedStudents[];
    displayfiles:Stream[];
@@ -49,7 +51,13 @@ export class TeacherMainComponent implements OnInit {
    quizid:string;
    quizstarttime1:Date;
    quizendtime1:Date;
-  constructor(private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
+   meetstarttime1:Date;
+   meetendtime1:Date;
+   videocall= false;
+   gtime:any;
+  //  joinval=false;
+  jstoday: Date;
+  constructor(private videoservice:VideoService,private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
     this.subjectid = this.route.snapshot.paramMap.get('sid');
@@ -79,6 +87,18 @@ export class TeacherMainComponent implements OnInit {
       else if(si==3){
         this.quiz();
       }
+      else if(si==4){
+        this.video();
+      }
+    }
+    video() : void {
+      this.stu=false;
+      this.material=false;
+      this.quizvalue=false;
+      this.displayAssignment=false;
+      this.disp=false;
+      this.assignment=false;
+      this.videocall=true;
     }
 
     stuDetails() : void {
@@ -88,6 +108,7 @@ export class TeacherMainComponent implements OnInit {
       this.displayAssignment=false;
       this.disp=false;
       this.assignment=false;
+      this.videocall=false;
       this.teacherservice.getJoinedStudents(this.subjectid).subscribe(info=>{
         console.log(info)
         this.sjarray=info;
@@ -98,6 +119,7 @@ export class TeacherMainComponent implements OnInit {
       this.stu=false;
       this.material=true;
       this.disp=true;
+      this.videocall=false;
       this.quizvalue=false;
       this.assignment=false;
       this.displayAssignment=false;
@@ -105,6 +127,7 @@ export class TeacherMainComponent implements OnInit {
 
     assign() {
       this.stu=false;
+      this.videocall=false;
       this.material=false;
       this.disp=false;
       this.quizvalue=false;
@@ -199,6 +222,7 @@ export class TeacherMainComponent implements OnInit {
       this.disp=false;
       this.assignment=false;
       this.quizvalue=true;
+      this.videocall=false;
 
     }
     createquiz() {
@@ -239,6 +263,103 @@ export class TeacherMainComponent implements OnInit {
         this.quizarray=info;
         console.log(info);
       });
+    }
+
+    viewstudent(quizid:string){
+      this.router.navigate(['quizstudents',this.teacherid,quizid]);
+    }
+    createmeet(mstart,mend,grace){
+      this.videoservice.createVideo(mstart,mend,grace,this.subjectid).subscribe(data=>{
+        if(data==='VideoMeet Added successfully'){
+          let dialogRef = this.matDialog.open(GreetingsComponent,{
+            data: {
+            title:"Meet Details",
+            message:"Request successfully place. Please create the Meet.",
+            }
+          });
+          dialogRef.afterClosed().subscribe(result=> {
+            console.log(`dialog result:${result}`)
+            if(result === 'true'){
+              // alert("Successfully logged in");
+              window.open( 
+                `http://localhost:3000/?myparam=${this.subjectid}`, "_blank");
+            }
+          });
+        }
+      });
+    }
+
+    getmeetdetails(){
+      let today=Date.now();
+      this.jstoday=new Date(formatDate(today, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0530'));
+       this.videoservice.getmeetdetails(this.subjectid).subscribe(info=>{
+        console.log(info);
+        this.v = info;
+        console.log(this.jstoday);
+        var new_startdate = new Date(formatDate(this.v.startdate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+        var new_enddate = new Date(formatDate(this.v.enddate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+        console.log(this.v.url)
+        var s = `http://localhost:3000`+this.v.url;
+        if(this.jstoday<=new_enddate && this.jstoday>=new_startdate){
+            window.open(s, "_blank");
+           }else {
+            let dialogRef = this.matDialog.open(GreetingsComponent,{
+              data: {
+              title:"Meet Details",
+              message:"Please Check the meet timings and join again",
+              }
+            
+            });
+            dialogRef.afterClosed().subscribe(result=> {
+              console.log(`dialog result:${result}`)
+              if(result === 'true'){
+                //alert("Successfully logged in");
+                location.reload();
+              }
+            });
+           }
+          
+        // if(this.v.gracetime>0){
+        //   var additional_time = new Date(new_startdate.getTime() + this.v.gracetime*60000);
+        //   if(additional_time<=new_enddate){
+        //     window.open(s, "_blank");
+        //   }else{
+        //     let dialogRef = this.matDialog.open(GreetingsComponent,{
+        //       data: {
+        //       title:"Meet Details",
+        //       message:"You have crossed the grace time period",
+        //       }
+            
+        //     });
+        //     dialogRef.afterClosed().subscribe(result=> {
+        //       console.log(`dialog result:${result}`)
+        //       if(result === 'true'){
+        //         //alert("Successfully logged in");
+        //         location.reload();
+        //       }
+        //     });
+        //   }
+        // }else{
+        //  if(this.jstoday<=new_enddate && this.jstoday>=new_startdate){
+        //   window.open(s, "_blank");
+        //  }else {
+        //   let dialogRef = this.matDialog.open(GreetingsComponent,{
+        //     data: {
+        //     title:"Meet Details",
+        //     message:"Please Check the meet timings and join again",
+        //     }
+          
+        //   });
+        //   dialogRef.afterClosed().subscribe(result=> {
+        //     console.log(`dialog result:${result}`)
+        //     if(result === 'true'){
+        //       //alert("Successfully logged in");
+        //       location.reload();
+        //     }
+        //   });
+        //  }
+        // }
+       });
     }
 
 

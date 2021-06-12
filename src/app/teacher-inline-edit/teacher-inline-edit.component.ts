@@ -16,6 +16,7 @@ export class TeacherInlineEditComponent implements OnInit {
   ngOnInit() {
   }
   act(phoneno:string){
+    if(phoneno != undefined) {
     this.teacherservice.updatePhonenumber(this.con.id,phoneno).subscribe(data=>{
       console.log(data);
       if(data==='Phoneno Updated successfully'){
@@ -48,8 +49,18 @@ export class TeacherInlineEditComponent implements OnInit {
         });
       }
     });
+      } else{
+        let dialogRef = this.matDialog.open(GreetingsComponent,{
+          data: {
+          title:"Updation unsuccessful",
+          message:"You have entered a blank value. Please update again!",
+          }
+        
+        });
       }
-      close() : void {
-        location.reload();
-      }
+    }
+  close() : void {
+    location.reload();
+  }
+    
 }

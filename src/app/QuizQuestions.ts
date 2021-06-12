@@ -6,5 +6,7 @@ export class QuizQuestions {
     correctanswers:string[];
     marks:number;
     type:number;
+    checkoptions:[];
+
 
 }

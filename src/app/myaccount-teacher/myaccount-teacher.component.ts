@@ -25,7 +25,7 @@ export class MyaccountTeacherComponent implements OnInit {
   }
   updatePhone(phoneno:string) {
     let dialogRef = this.matDialog.open(TeacherInlineEditComponent,{
-      height: '200px',
+      height: '250px',
       width: '400px',
       data: {
       title : "Phone number Updation",

@@ -60,7 +60,7 @@ login(): void {
       console.log(`dialog result:${result}`)
       if(result === 'true'){
         //alert("Successfully logged in");
-        location.reload();
+        this.password='';
       }
     });
   } else {
@@ -100,7 +100,7 @@ login(): void {
       console.log(`dialog result:${result}`)
       if(result === 'true'){
         //alert("Successfully logged in");
-        location.reload();
+        this.password='';
 
       }
     });

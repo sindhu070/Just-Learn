@@ -41,5 +41,26 @@ submitquiz(quizid:string){
   const body = JSON.stringify(obj);
   return this.http.put(`${this.baseUrl}/quizsubmit`, body, {headers: header, responseType: 'text'});
 }
+getQuizDetailsByQuizId(quizid:string){
+  return this.http.get(`${this.baseUrl}/getsquizdetails/id/${quizid}`);
+}
+
+submitmarks(srollno:string,qid:string,marks:number){
+  const header = {'content-type': 'application/json'};
+  var obj = {
+    "studentid":srollno,
+    "marks":marks
+  }
+  const body = JSON.stringify(obj);
+  return this.http.put(`${this.baseUrl}/quizmarks/${qid}`, body, {headers: header, responseType: 'text'});
+}
+ getmarks(quizid:string){
+   return this.http.get(`${this.baseUrl}/getquizmarks/${quizid}`);
+ }
+
+ getsubmissiondetails(srollno:string,quizid){
+  return this.http.get(`${this.baseUrl}/getsubmissiondetails/${quizid}/${srollno}`);
+ }
+
 }
 

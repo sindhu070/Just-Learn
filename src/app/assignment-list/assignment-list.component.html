@@ -68,7 +68,10 @@
     </tr>
     </td>
     <td>
-      <input type="text" class="form-control" id="marks-{{i}}" placeholder="Enter Marks" name="marks" [(ngModel)]="a.assignmarks" #marks="ngModel">
+      <input type="text" class="form-control" id="marks-{{i}}" placeholder="Enter Marks" name="marks" [(ngModel)]="a.assignmarks" #marks="ngModel" required autofocus>
+      <div *ngIf="marks.invalid && (marks.touched)" style="color:red;font-size: 15px;"> 
+        *Above Field is required. 
+    </div>
     </td>
     <td>
       <button type="submit" class="btn btn-info" (click)="submitMarks(a.id,a.assignmarks)">Submit Marks</button>

@@ -16,6 +16,7 @@ export class InlineEditComponent implements OnInit {
   }
 
 act(phoneno:string){
+  if(phoneno != undefined) {
 this.studentservice.updatePhonenumber(this.con.id,phoneno).subscribe(data=>{
   console.log(data);
   if(data==='Phoneno Updated successfully'){
@@ -48,6 +49,15 @@ this.studentservice.updatePhonenumber(this.con.id,phoneno).subscribe(data=>{
     });
   }
 });
+  } else{
+    let dialogRef = this.matDialog.open(GreetingsComponent,{
+      data: {
+      title:"Updation unsuccessful",
+      message:"You have entered a blank value. Please update again!",
+      }
+    
+    });
+  }
   }
   close() : void {
     this.router.navigate(['myaccount',this.con.id]);

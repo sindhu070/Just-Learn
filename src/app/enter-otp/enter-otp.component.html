@@ -4,8 +4,11 @@
   {{con1.message}}
   <form class="form">
   <div class="form-group">
-    <input type="text" class="form-control" id="otp" placeholder="Enter The OTP"  name="otps" [(ngModel)]="otp" #otps="ngModel">
+    <input type="text" class="form-control" id="otp" placeholder="Enter The OTP" name="otps" [(ngModel)]="otp" #otps="ngModel" required >
   </div>
+  <div *ngIf="otps.invalid && (otps.touched)" style="color:red"> 
+	  *Above Field required. 
+</div>
   </form>
 
 </mat-dialog-content>

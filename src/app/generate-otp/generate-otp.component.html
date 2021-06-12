@@ -1,10 +1,13 @@
 
 <h2 mat-dialog-title>{{con.title}}</h2>
 <mat-dialog-content>
-  {{con.message}}
+  {{con.message}}<br>
   <form class="form">
   <div class="form-group">
-    <input type="text" class="form-control" id="username" placeholder="Enter Your Email to receive OTP"  name="emailid" [(ngModel)]="email" #emailid="ngModel">
+    <input type="text" class="form-control" id="username" placeholder="Enter Your Email to receive OTP"  name="emailid" [(ngModel)]="email" #emailid="ngModel" required>
+    <div *ngIf="emailid.invalid && (emailid.touched)" style="color:red;font-size: 15px;"> 
+      *Above Field required. 
+  </div>
   </div>
   </form>
 
@@ -12,4 +15,7 @@
 <mat-dialog-actions>
   <button class="btn btn-warning" mat-dialog-close mat-dialog-close="submit" (click)="generateOTP(email)">Generate OTP</button>
 </mat-dialog-actions>
+
+
+
 

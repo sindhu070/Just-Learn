@@ -37,6 +37,8 @@ import { DatePipe } from '@angular/common';
 import { UploadQuizComponent } from './upload-quiz/upload-quiz.component';
 import { DisplayQuestionTypeComponent } from './display-question-type/display-question-type.component';
 import { DisplayQuizComponent } from './display-quiz/display-quiz.component';
+import { ShowMarksStudentComponent } from './show-marks-student/show-marks-student.component';
+import { AppPasswordDirective } from './app-password.directive';
 
 
 const routes: Routes = [
@@ -74,6 +76,8 @@ const routes: Routes = [
     UploadQuizComponent,
     DisplayQuestionTypeComponent,
     DisplayQuizComponent,
+    ShowMarksStudentComponent,
+    AppPasswordDirective,
 
   ],
   

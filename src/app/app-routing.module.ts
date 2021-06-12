@@ -12,6 +12,7 @@ import { MyaccountTeacherComponent } from './myaccount-teacher/myaccount-teacher
 import { MyaccountComponent } from './myaccount/myaccount.component';
 import { RegisterStudentComponent } from './register-student/register-student.component';
 import { RegisterTeacherComponent } from './register-teacher/register-teacher.component';
+import { ShowMarksStudentComponent } from './show-marks-student/show-marks-student.component';
 import { StudentMainComponent } from './student-main/student-main.component';
 import { StudentWelcomeComponent } from './student-welcome/student-welcome.component';
 import { TeacherMainComponent } from './teacher-main/teacher-main.component';
@@ -32,8 +33,10 @@ const routes: Routes = [
     {path:'myaccount/:id', component:MyaccountComponent},
     {path:'teacheraccount/:tid', component:MyaccountTeacherComponent},
     {path:'uploadquiz/:quizid/:tid', component:UploadQuizComponent},
-    {path:'seequiz/:quizid/:sid', component:DisplayQuizComponent},
+    {path:'seequiz/:quizid/:rollno', component:DisplayQuizComponent},
+    {path:'quizstudents/:id/:quizid', component:ShowMarksStudentComponent},
     {path:'', redirectTo: 'home', pathMatch:'full'}
+
     
 ];
 

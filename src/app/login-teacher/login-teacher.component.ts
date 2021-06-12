@@ -47,7 +47,8 @@ export class LoginTeacherComponent implements OnInit {
         console.log(`dialog result:${result}`)
         if(result === 'true'){
           //alert("Successfully logged in");
-          location.reload();
+          this.password = '';
+
         }
       });
     } else {
@@ -85,7 +86,7 @@ export class LoginTeacherComponent implements OnInit {
         console.log(`dialog result:${result}`)
         if(result === 'true'){
           //alert("Successfully logged in");
-          location.reload();
+          this.password='';
   
         }
       });

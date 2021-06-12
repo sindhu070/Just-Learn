@@ -11,6 +11,8 @@ import { SubjectService } from '../subject.service';
 import { TeacherService } from '../teacher.service';
 import {DatePipe, formatDate} from '@angular/common';
 import { quizService } from '../quiz.service';
+import { VideoService } from '../VideoService';
+import { Video } from '../Video';
 
 @Component({
   selector: 'app-student-main',
@@ -46,10 +48,11 @@ export class StudentMainComponent implements OnInit {
   uploads:string[];
   latest_date:any;
   displayquizlist=false;
-  jstoday: string;
+  jstoday: any;
   startdates:any;
   enddates: string;
-  constructor(private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
+  v: any;
+  constructor(private videoservice:VideoService,private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
     this.subjectid = this.route.snapshot.paramMap.get('sid');
@@ -81,10 +84,12 @@ export class StudentMainComponent implements OnInit {
     // this.material=true;
     this.disp=true;
     this.assignment=false;
+    this.displayquizlist=false;
   }
   stuDetails() : void {
     this.stu=true;
     this.material=false;
+    this.displayquizlist=false;
     this.disp=false;
     this.assignment=false;
     this.teacherservice.getJoinedStudents(this.subjectid).subscribe(info=>{
@@ -194,7 +199,7 @@ openquiz(quizid:string,startdate:Date,enddate:Date){
   // alert(this.enddates);
   // alert(this.jstoday)
   if(this.jstoday<=this.enddates && this.jstoday>=this.startdates){
-    this.router.navigate(['seequiz',quizid,this.studentid]);
+    this.router.navigate(['seequiz',quizid,this.rollnumber]);
   } else {
     let dialogRef = this.matDialog.open(GreetingsComponent,{
       data: {
@@ -212,6 +217,59 @@ openquiz(quizid:string,startdate:Date,enddate:Date){
       }
     });
   }
+}
+
+joinmeet(){
+  let today=Date.now();
+  this.jstoday=new Date(formatDate(today, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0530'));
+   this.videoservice.getmeetdetails(this.subjectid).subscribe(info=>{
+    console.log(info);
+    this.v = info;
+    var new_startdate = new Date(formatDate(this.v.startdate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+    var new_enddate = new Date(formatDate(this.v.enddate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+    console.log(this.v.url)
+    var s = `http://localhost:3000`+this.v.url;
+    if(this.v.gracetime>0 && this.jstoday<=new_enddate && this.jstoday>=new_startdate) {
+      var additional_time = new Date(new_startdate.getTime() + this.v.gracetime*60000);
+      if(additional_time<=new_enddate){
+        window.open(s, "_blank");
+      }else{
+        let dialogRef = this.matDialog.open(GreetingsComponent,{
+          data: {
+          title:"Meet",
+          message:"You have crossed the grace time period",
+          }
+        
+        });
+        dialogRef.afterClosed().subscribe(result=> {
+          console.log(`dialog result:${result}`)
+          if(result === 'true'){
+            //alert("Successfully logged in");
+            location.reload();
+          }
+        });
+      }
+    } else{
+     if(this.jstoday<=new_enddate && this.jstoday>=new_startdate){
+      window.open(s, "_blank");
+     }else {
+      let dialogRef = this.matDialog.open(GreetingsComponent,{
+        data: {
+        title:"Meet",
+        message:"Please Check the meet timings and join again",
+        }
+      
+      });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true'){
+          //alert("Successfully logged in");
+          location.reload();
+        }
+      });
+     }
+    }
+   });
 }
 
 

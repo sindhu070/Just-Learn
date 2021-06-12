@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
 </head>
 
 <div id="container1">
@@ -46,7 +47,7 @@
   <mat-tab label="Assignments"></mat-tab><br>
   <mat-tab label="Student Details"></mat-tab><br>
   <mat-tab label="Quizzes"></mat-tab><br>
-</mat-tab-group><br><br><br><br><br><br>
+</mat-tab-group><br><br><button class="btn btn-warning btn-lg float-right" (click)="joinmeet()">Join Meet <i class="glyphicon glyphicon-log-out"></i></button><br><br><br><br>
 
 <div *ngIf="disp">
   <table class="table">
@@ -100,8 +101,11 @@
     <td style="width:25%">{{a.assique}}</td>
     <td><form class="form-inline" >
       <div class="form-group" >
-        <div *ngIf="a.smarks==0 && (a.deadline>=latest_date)">
-          <input   class="form-control form-control-lg"   type="file" (change)="onFileChanged($event)">&nbsp;&nbsp;
+        <div *ngIf="a.smarks==0 && (a.deadline>=latest_date) ">
+          <input   class="form-control form-control-lg"   type="file" (change)="onFileChanged($event)" name="uf" [(ngModel)]="uf1" #uf="ngModel" required>
+          <div *ngIf="uf.invalid && (uf.touched)" style="color:red"> 
+            *Above Field required. 
+        </div>&nbsp;&nbsp;
           <button  class="btn btn-danger"  (click)="onUpload(a.assiid)" value="upload">Upload</button><br><br>
         </div>
         <div id="dead" *ngIf="!(a.deadline>=latest_date)">

@@ -82,7 +82,8 @@ export class RegisterTeacherComponent {
           console.log(`dialog result:${result}`)
           if(result === 'true'){
             //alert("Successfully logged in");
-            location.reload();
+            this.pass = '';
+            this.rpass = '';
     
           }
         });
@@ -101,7 +102,8 @@ export class RegisterTeacherComponent {
       console.log(`dialog result:${result}`)
       if(result === 'true'){
         //alert("Successfully logged in");
-        location.reload();
+        this.pass = '';
+        this.rpass = '';
 
       }
     });
@@ -120,7 +122,9 @@ export class RegisterTeacherComponent {
         console.log(`dialog result:${result}`)
         if(result === 'true'){
           //alert("Successfully logged in");
-          location.reload();
+          this.pass = '';
+            this.rpass = '';
+            this.phoneno='';
   
         }
       });
@@ -137,7 +141,8 @@ export class RegisterTeacherComponent {
     console.log(`dialog result:${result}`)
     if(result === 'true'){
       //alert("Successfully logged in");
-      location.reload();
+      this.pass = '';
+      this.rpass = '';
 
     }
   });

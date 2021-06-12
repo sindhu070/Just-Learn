@@ -1,5 +1,7 @@
+
+
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { quizService } from '../quiz.service';
@@ -8,8 +10,15 @@ import { SubjectService } from '../subject.service';
 import { TeacherService } from '../teacher.service';
 import { Location } from '@angular/common';
 import { QuizQuestions } from '../QuizQuestions';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+
+
+
+
 import { QuizConfig } from '../quiz-config';
+import { CheckboxVal } from '../CheckboxVal';
+import { GreetingsComponent } from '../greetings/greetings.component';
+
+
 @Component({
   selector: 'app-display-quiz',
   templateUrl: './display-quiz.component.html',
@@ -55,37 +64,90 @@ export class DisplayQuizComponent implements OnInit {
   multipleans=false;
   blanks=false;
   radioSel: any;
+  checkboxval:CheckboxVal[];
+  myMap = new Map();
+  c: number;
+  studentroll: string;
+  attempted: any;
   constructor(private location: Location,private quizservice:quizService,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) {}
+  
 
   ngOnInit() {
+  
+ 
     this.quizid = this.route.snapshot.paramMap.get('quizid');
-    this.studentid = this.route.snapshot.paramMap.get('sid');
+    this.studentroll = this.route.snapshot.paramMap.get('rollno');
+    this.quizservice.getsubmissiondetails(this.studentroll,this.quizid).subscribe(inform=>{
+    this.attempted=inform.attempted;
+    if(this.attempted===true){
+      let dialogRef = this.matDialog.open(GreetingsComponent,{
+        data: {
+        title:"Quiz",
+        message:"You have already attempted the quiz! Sorry!",
+        }
+      });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true'){
+          //alert("Successfully logged in");
+          this.okay();
+        }
+      });
+    } else{
+    
     this.loadQuiz();
     this.radioselected = "item_3";
-    
-
+    }
+    });
+  
   }
+
 
   loadQuiz() {
     this.quizservice.getquestiondetails(this.quizid).subscribe(res => {
-      this.quizquestions = res;
+    this.quizquestions = res;
+    this.quizservice.getQuizDetailsByQuizId(this.quizid).subscribe(dataval=>{
+      this.config.duration=dataval.time*60;
+   
+      // var ch3=this.checkboxval;
+      // this.quizquestions.forEach((x,index)=>{
+      //   if(x.type==2){
+      //     x.options.forEach(y=>{
+      //       let ch1: CheckboxVal = new CheckboxVal();
+      //       ch1.qno=index+1;
+      //       ch1.id=y;
+      //       ch1.isSelected=false;
+      //       this.checkboxval.push(ch1);
+
+      //     }); 
+      //   }
+      // });
+      // console.log(ch3)
      console.log(this.quizquestions)
       this.pager.count = this.quizquestions.length;
       this.startTime = new Date();
       this.ellapsedTime = '00:00';
       this.timer = setInterval(() => { this.tick(); }, 1000);
-      this.duration = this.parseTime(this.quizquestions.time);
+     
+      this.duration = this.parseTime(dataval.time*60);
     });
+  })
     this.mode = 'quiz';
   }
+
 
   tick() {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
+    // console.log(diff)
+
     if (diff >= this.config.duration) {
+      clearInterval(this.timer); 
       this.onSubmit();
+   
     }
     this.ellapsedTime = this.parseTime(diff);
+ 
   }
 
   parseTime(totalSeconds: number) {
@@ -101,15 +163,35 @@ export class DisplayQuizComponent implements OnInit {
       this.quizquestions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
   }
 
-  onSelect(option:string[]) {
-    console.log(option)
-    // if (options.length>1) {
-    //   if(correctanswers.length==1){
-
-    //   }
-    //   // question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; 
-    //   }
-    
+  onSelect(type:number,myMap:Map<number,string[]>,n:number,option:string) {
+    var opt:string[] = [];
+    // myMap.set(n,opt)
+    if(type ==2 ) {
+    if(myMap.get(n)==undefined){
+      myMap.set(n,opt);
+    } 
+    opt = myMap.get(n);
+    if(!(opt.includes(option))) {
+    opt.push(option);
+    myMap.set(n,opt) //set
+    console.log(opt);
+    console.log(myMap);
+    }else{
+      opt.splice(opt.indexOf(option),1)
+      myMap.set(n,opt);
+      console.log(opt);
+      console.log(myMap);
+    }
+  } else{
+    if(myMap.get(n)==undefined){
+      myMap.set(n,opt);
+    }
+    // opt = myMap.get(n);
+    opt.push(option);
+    myMap.set(n,opt) //set
+    console.log(opt)
+    console.log(myMap);
+  }
 
     if (this.config.autoMove) {
       this.goTo(this.pager.index + 1);
@@ -124,7 +206,9 @@ export class DisplayQuizComponent implements OnInit {
     if (index >= 0 && index < this.pager.count) {
       this.pager.index = index;
       this.mode = 'quiz';
+    
     }
+   
   }
 
   // isAnswered(question: Question) {
@@ -136,38 +220,121 @@ export class DisplayQuizComponent implements OnInit {
   // };
 
   onSubmit() {
-    let answers = [];
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
-
-    // Post your data to the server here. answers contains the questionId and the users' answer.
-    console.log(this.quiz.questions);
-    this.mode = 'result';
+      let count = 0;
+      // let ans:string[] = [];
+      this.quizquestions.forEach((element,index) => {
+     let ans = this.myMap.get(index+1);
+      if(ans!=undefined){
+        ans.sort();
+      }
+      if(element.correctanswers!=undefined){
+      element.correctanswers.sort();
+      }
+      // element.correctanswers = element.correctanswers.sort();
+      if(JSON.stringify(ans)==JSON.stringify(element.correctanswers)){
+        count=count+element.marks; 
+      }
+    });
+  this.c=count;
+  console.log(this.c)
+  this.mode = 'result';
+  this.quizservice.submitmarks(this.studentroll,this.quizid,this.c).subscribe(data=>{
+    console.log(data);
+  });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  home(){
-    this.router.navigate(['sw',this.studentid]);
+  getval(qno:number) : boolean {
+    var z = false;
+    if(this.myMap.has(qno)){
+      var x = this.myMap.get(qno);
+      if(x!=undefined){
+        x.sort();
+      }
+      if(y!=undefined){
+        y.sort();
+      }
+      var y = this.quizquestions[qno-1].correctanswers;
+      if(JSON.stringify(x)==JSON.stringify((y))){
+        z = true;
+      } else {
+        z = false;
+      }
+    } else {
+      z = false;
     }
-    myaccount() {
-      this.router.navigate(['myaccount',this.studentid]);
+    return z
+
+  }
+
+  getans(qno:number) : string {
+    var x = this.myMap.get(qno);
+    return x
+  }
+
+  getcorrectans(qno:number) : string {
+    return this.quizquestions[qno-1].correctanswers;
+  }
+  getmarks(qno:number) : number {
+    var z = 0;
+    if(this.myMap.has(qno)){
+      var x = this.myMap.get(qno);
+      var y = this.quizquestions[qno-1].correctanswers;
+      if(x!=undefined){
+        x.sort();
+      }
+      if(y!=undefined){
+        y.sort();
+      }
+      if(JSON.stringify(x)==JSON.stringify(y)){
+        z = this.quizquestions[qno-1].marks;
+      } else {
+        z = 0;
+      }
+    } else {
+      z = 0;
     }
-    logout() {
-    this.router.navigate(['/']);
+    return z
+  }
+
+  okay() {
+    this.location.back();
     }
+    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+      let result = confirm("Caution:Your quiz will be submitted");
+      console.log(result)
+      if (result) {
+        console.log(result)
+        // Do more processing...
+        this.router.navigate(['/'])
+      }else{
+      event.returnValue = false;
+      } // stay on same page
+    }
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // home(){
+  //   this.router.navigate(['sw',this.studentid]);
+  //   }
+  //   myaccount() {
+  //     this.router.navigate(['myaccount',this.studentid]);
+  //   }
+  //   logout() {
+  //   this.router.navigate(['/']);
+  //   }
     
 }
+

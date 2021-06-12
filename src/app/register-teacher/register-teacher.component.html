@@ -169,7 +169,7 @@ body {
 						<i class="fa fa-lock"></i>
 					</span>                    
 				</div>
-				<input type="password" class="form-control" name="tpass" id="tpassword" placeholder="Password" required="required" (focus)="onFocusEvent($event)" (focusout)="onFocusOutEvent($event)" [(ngModel)]="pass" #tpass="ngModel">
+				<input type="password" class="form-control" name="tpass" id="tpassword" placeholder="Password" required="required" (focus)="onFocusEvent($event)" (focusout)="onFocusOutEvent($event)" [(ngModel)]="pass" #tpass="ngModel" appAppPassword>
 			</div>
         </div>
 		<p id="sp" *ngIf="isShown">1.Password should be between 6 and 16 characters<br>2.It should contain special characters like !@#$%^&* <br>3.It should contain caps and small characters</p>
@@ -181,7 +181,7 @@ body {
 						<i class="fa fa-check"></i>
 					</span>                    
 				</div>
-				<input type="password" class="form-control" name="trpass" id="trpassword"placeholder="Confirm Password"  [(ngModel)]="rpass" #trpass="ngModel" required="required">
+				<input type="password" class="form-control" name="trpass" id="trpassword"placeholder="Confirm Password"  [(ngModel)]="rpass" #trpass="ngModel" required="required" appAppPassword>
 			</div>
         </div>
     <div class="form-group">

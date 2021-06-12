@@ -46,14 +46,21 @@
   <mat-tab label="Assignments"></mat-tab><br>
   <mat-tab label="Student Details"></mat-tab><br>
   <mat-tab label="Quizzes"></mat-tab><br>
+  <mat-tab label="Start Video"></mat-tab><br>
 </mat-tab-group><br><br><br><br><br><br>
 <div *ngIf="material">
 <h3> Please upload Materials here</h3><br>
 <form action="/action_page.php">
   <div class="form-group">
     <div class="col-xs-4">
-      <input class="form-control" name="title" id="ex2" type="text" placeholder="Enter title" [(ngModel)]="title1" #title="ngModel"><br>
-      <input class="form-control form-control-lg"  type="file" (change)="onFileChanged($event)"><br>
+      <input class="form-control" name="title" required id="ex2" type="text" placeholder="Enter title" [(ngModel)]="title1" #title="ngModel"><br>
+      <div *ngIf="title.invalid && (title.touched)" style="color:red;font-size: 15px;"> 
+        *Above Field required. 
+      </div><br>
+      <input class="form-control form-control-lg" name="uf" [(ngModel)]="uf1" #uf="ngModel" type="file" (change)="onFileChanged($event)" required><br>
+      <div *ngIf="uf.invalid && (uf.touched)" style="color:red;font-size: 15px;"> 
+        *Above Field required. 
+      </div><br>
       <button class="btn btn-success" (click)="onUpload()" value="upload">Upload</button>
      <br><br><br>
     </div>
@@ -106,17 +113,25 @@
 <div *ngIf="assignment">
   <form class="form-inline">
     <div class="form-group">
-      <input type="text" class="form-control" id="assigntitle" placeholder="Enter Title" name="atitle" [(ngModel)]="assigntitle" #atitle="ngModel">
-    </div> &nbsp;&nbsp;&nbsp;
+      <input type="text" class="form-control" id="assigntitle" placeholder="Enter Title" name="atitle" [(ngModel)]="assigntitle" #atitle="ngModel" required>
+    </div><div *ngIf="atitle.invalid && (atitle.touched)" style="color:red;font-size: 25px;"> 
+      * 
+  </div> &nbsp;&nbsp;&nbsp;
     <div class="form-group">
-      <input type="text" class="form-control" id="question" placeholder="Enter Assignment Question Here" name="ques" [(ngModel)]="aquestion" #ques="ngModel">
-    </div>&nbsp;&nbsp;&nbsp;
-    <div class="form-group">
-    <input type="text" class="form-control" id="totmarks" placeholder="Enter Total marks" name="total" [(ngModel)]="totalmarks" #total="ngModel">
+      <input type="text" class="form-control" id="question" placeholder="Enter Assignment Question Here" name="ques" [(ngModel)]="aquestion" #ques="ngModel" required>
+    </div><div *ngIf="ques.invalid && (ques.touched)" style="color:red;font-size:25px;"> 
+      *
   </div>&nbsp;&nbsp;&nbsp;
+    <div class="form-group">
+    <input type="text" class="form-control" id="totmarks" placeholder="Enter Total marks" name="total" [(ngModel)]="totalmarks" #total="ngModel" required>
+  </div><div *ngIf="total.invalid && (total.touched)" style="color:red;font-size: 25px;"> 
+	  * 
+</div>&nbsp;&nbsp;&nbsp;
   <div class="form-group">
-    <input  onfocus="this.type='date'" class="form-control" id="dateval" placeholder="Deadline Date" name="dead" [(ngModel)]="deadlinedate" #dead="ngModel">
-  </div>&nbsp;&nbsp;
+    <input  onfocus="this.type='date'" class="form-control" id="dateval" placeholder="Deadline Date" name="dead" [(ngModel)]="deadlinedate" #dead="ngModel" required>
+  </div><div *ngIf="dead.invalid && (dead.touched)" style="color:red;font-size: 25px;"> 
+	  *
+</div>&nbsp;&nbsp;
     <button type="submit" class="btn btn-success" (click)="uploadAssignment(assigntitle,aquestion,totalmarks,deadlinedate)">Upload Assignment</button>
   </form>
 </div>
@@ -164,22 +179,34 @@
     <form class="form-horizontal">
       <div class="form-group">
         <div class="col-sm-6">
-          <input type="text" class="form-control" id="subname" placeholder="Enter Quiz name" name="quizname" [(ngModel)]="quizname1" #quizname="ngModel">
+          <input type="text" class="form-control" id="subname" placeholder="Enter Quiz name" name="quizname" [(ngModel)]="quizname1" #quizname="ngModel" required><br>
+          <div *ngIf="quizname.invalid && (quizname.touched)" style="color:red;font-size: 15px;"> 
+            *Above Field required. 
+        </div>
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-6">
-          <input class="form-control" placeholder="Quiz Start Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="quizstarttime" [(ngModel)]="quizstarttime1" #quizstarttime="ngModel" id="example-datetime-local-input">
+          <input class="form-control" placeholder="Quiz Start Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="quizstarttime" [(ngModel)]="quizstarttime1" #quizstarttime="ngModel" id="example-datetime-local-input" required><br>
+          <div *ngIf="quizstarttime.invalid && (quizstarttime.touched)" style="color:red;font-size: 15px;"> 
+            *Above Field required. 
+        </div>
         </div>
         </div>
         <div class="form-group ">
           <div class="col-sm-6">
-            <input class="form-control" placeholder="Quiz End Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="quizendtime" [(ngModel)]="quizendtime1" #quizendtime="ngModel" id="example-datetime-local-input">
+            <input class="form-control" placeholder="Quiz End Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="quizendtime" [(ngModel)]="quizendtime1" #quizendtime="ngModel" id="example-datetime-local-input" required><br>
+            <div *ngIf="quizendtime.invalid && (quizendtime.touched)" style="color:red;font-size: 15px;"> 
+              *Above Field required. 
+          </div>
           </div>
           </div>
       <div class="form-group">
         <div class="col-sm-6">          
-          <input type="text" class="form-control" id="ysec" placeholder="Enter Total Quiz Time" name="time" [(ngModel)]="time1" #marks="ngModel">
+          <input type="text" class="form-control" id="ysec" placeholder="Enter Total Quiz Time" name="time" [(ngModel)]="time1" #marks="ngModel" required><br>
+          <div *ngIf="marks.invalid && (marks.touched)" style="color:red;font-size: 15px;"> 
+            *Above Field required. 
+        </div>
         </div>
       </div>
       <div class="form-group">        
@@ -209,11 +236,43 @@
       <button class="btn btn-success" (click)="openquiz(q.id)">Open Quiz</button>
     </td>
     <td>
-      <button class="btn btn-success">View Student details</button>
+      <button class="btn btn-success" (click)="viewstudent(q.id)">View Student details</button>
     </td>
   </tr>
   </table>
   </div>
 </div>
+<div *ngIf="videocall">    
+  <div>
+    <button type="submit" class="btn btn-warning float-right" (click)="getmeetdetails()"><i class="glyphicon glyphicon-new-window"></i> Join Meet</button><br><br><br><br>
+  </div>
+    <form class="form-horizontal">
+    <div class="form-group">
 
+        <input style="font-size: 18px;" class="form-control" placeholder="Meet Start Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="meetstarttime" [(ngModel)]="meetstarttime1" #meetstarttime="ngModel" id="example-datetime-local-input" required>
+      </div> <div *ngIf="meetstarttime.invalid && (meetstarttime.touched)" style="color:red;font-size:15px;"> 
+        *Above Field required. 
+    </div><br><br><br>
+      <div class="form-group ">
+
+          <input style="font-size: 18px;" class="form-control" placeholder="Meet End Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="meetendtime" [(ngModel)]="meetendtime1" #meetendtime="ngModel" id="example-datetime-local-input" required>
+
+        </div><div *ngIf="meetendtime.invalid && (meetendtime.touched)" style="color:red;font-size:15px;"> 
+          *Above Field required. 
+      </div> <br><br><br>
+        <div class="form-group">
+         
+            <input  style="font-size: 18px;" type="text" class="form-control" id="ysec" placeholder="Enter Grace Period (in mins)" name="gtime" [(ngModel)]="gtime1" #gtime="ngModel" required>
+
+        </div><div *ngIf="gtime.invalid && (gtime.touched)" style="color:red;font-size:15px;"> 
+          *Above Field required. 
+      </div> <br><br><br>
+      
+    <div class="form-group">        
+
+        <button type="submit" class="btn btn-success btn-lg" (click)="createmeet(meetstarttime1,meetendtime1,gtime1)">Create Meet</button>
+
+    </div>
+  </form>
+</div>
 </div>

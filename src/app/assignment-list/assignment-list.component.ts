@@ -85,7 +85,7 @@ export class AssignmentListComponent implements OnInit {
       console.log(`dialog result:${result}`)
       if(result === 'true'){
         //alert("Successfully logged in");
-        location.reload();
+        marks=null;
       }
     });
   }
@@ -97,12 +97,7 @@ export class AssignmentListComponent implements OnInit {
   home(){
     this.router.navigate(['tw',this.teacherid]);
   }
-  about() {
-    this.router.navigate(['/']);
-  }
-  contact(){
-    this.router.navigate(['/']);
-  }
+ 
   logout() {
     this.router.navigate(['/']);
   }

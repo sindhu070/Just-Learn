@@ -50,13 +50,19 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="subname">Subject Name:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="subname" placeholder="Enter subject name" name="subname" [(ngModel)]="subjectname" #subname="ngModel">
+        <input type="text" class="form-control" id="subname" placeholder="Enter subject name" name="subname" [(ngModel)]="subjectname" #subname="ngModel" required>
+        <div *ngIf="subname.invalid && (subname.touched)" style="color:red"> 
+          *Above Field is required. 
+      </div>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="ysec">Year and Section:</label>
       <div class="col-sm-4">          
-        <input type="text" class="form-control" id="ysec" placeholder="Enter year and section" name="ysec" [(ngModel)]="yearsec" #ysec="ngModel">
+        <input type="text" class="form-control" id="ysec" placeholder="Enter year and section" name="ysec" [(ngModel)]="yearsec" #ysec="ngModel" required>
+        <div *ngIf="ysec.invalid && (ysec.touched)" style="color:red"> 
+          *Above Field is required. 
+      </div>
       </div>
     </div>
     <div class="form-group">        

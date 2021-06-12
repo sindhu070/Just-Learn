@@ -3,7 +3,10 @@
 <mat-dialog-content>
   <form class="form">
   <div class="form-group">
-    <input type="text" class="form-control" id="phn" placeholder="Enter New Phoneno"  name="phnno" [(ngModel)]="phoneno" #phnno="ngModel">
+    <input type="text" class="form-control" id="phn" placeholder="Enter New Phoneno"  name="phnno" [(ngModel)]="phoneno" #phnno="ngModel" required>
+    <div *ngIf="phnno.invalid && (phnno.touched)" style="color:red"> 
+      *Above Field required. 
+  </div>
   </div>
   </form>
 

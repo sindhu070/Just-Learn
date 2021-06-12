@@ -127,7 +127,7 @@ body {
               <li><a  (click)="ltea()">as Teacher</a></li>
             </ul>
             </div>
-            <li><a  (click)="contact()">Contact</a></li>
+            <li><a  (click)="contact()">Contact Us</a></li>
         </ul>
       </nav>
     </div>
@@ -159,13 +159,11 @@ body {
 						<i class="fa fa-lock"></i>
 					</span>                    
 				</div>
-				<input type='password' class="form-control" name="password" id="spassword" placeholder="Password" required="required"  [(ngModel)]="password" #spassword="ngModel">
+				<input type='password' class="form-control" name="password" id="spassword" placeholder="Password" required="required"  [(ngModel)]="password" #spassword="ngModel" appAppPassword>
 					<!-- <span>{{toggle ? 'Hide' : 'Show'}}</span></button> -->
         </div>
 		</div>
 		<p id="sp" hidden>1.Password should be between 6 and 16 characters<br>2.It should contain special characters like !@#$%^&* <br>3.It should contain caps and small characters</p>
-		
-      
 		<div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg">Sign In</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a style="color:blue;" (click)="enterEmail()">Forgot password?</a>

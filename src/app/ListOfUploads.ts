@@ -5,4 +5,5 @@ export class ListOfUploads {
     smarks:number
     assimarks:number;
     assians: string[];
+    deadline:Date;
 }

@@ -1,10 +1,23 @@
-
+<!-- <script src=
+"https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js">
+    </script>
+  
+    <style>
+        .req {
+            font-size: 90%;
+            font-style: italic;
+            color: red;
+        }
+    </style> -->
 <h2 mat-dialog-title>{{con.title}}</h2>
 <mat-dialog-content>
   <form class="form">
   <div class="form-group">
-    <input type="text" class="form-control" id="subcode1" placeholder="Enter Subject Code"  name="subcode" [(ngModel)]="scode" #subcode="ngModel">
+    <input type="text" class="form-control" id="subcode1" required placeholder="Enter Subject Code"  name="subcode" [(ngModel)]="scode" #subcode="ngModel" required>
   </div>
+  <div *ngIf="subcode.invalid && (subcode.touched)" style="color:red"> 
+	  *Above Field required. 
+</div> 
   </form>
 
 </mat-dialog-content>
