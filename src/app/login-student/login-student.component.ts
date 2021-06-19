@@ -118,7 +118,7 @@ enterEmail() {
     height: '250px',
     width: '400px',
     data: {
-    title : "Verification"
+    title : "Verification",
 
     }
   });

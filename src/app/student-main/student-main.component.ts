@@ -85,6 +85,7 @@ export class StudentMainComponent implements OnInit {
     this.disp=true;
     this.assignment=false;
     this.displayquizlist=false;
+    
   }
   stuDetails() : void {
     this.stu=true;
@@ -125,9 +126,32 @@ getquizdetails(){
   this.quizservice.getquizdetails(this.subjectid).subscribe(info=>{
 
     this.quizarray=info;
-    console.log(this.startdates)
+    // this.quizservice.getmarks()
     console.log(info);
   });
+}
+checkmarks(id:string) {
+  this.quizservice.getmarks(id).subscribe(inform=>{
+    console.log(inform[0])
+  if(inform[0]!=null){
+    let dialogRef = this.matDialog.open(GreetingsComponent,{
+      data: {
+      title:"Quiz Marks",
+      message:"You scored: " + inform[0].marks + " marks in " + inform[0].quizname,
+      username:this.username
+      }
+    
+    });
+    dialogRef.afterClosed().subscribe(result=> {
+      console.log(`dialog result:${result}`)
+      if(result === 'true'){
+        //alert("Successfully logged in");
+        location.reload();
+      }
+    });
+  }
+  });
+
 }
 openFile(fileid:string) : void {
 window.open(`http://localhost:8080/jl/files/stream/${fileid}`, '_blank');
@@ -140,7 +164,7 @@ assignDisplay() : void {
   this.stu=false;
   this.disp=false;
   this.assignment=true;
-
+  this.displayquizlist=false;
  this.getAssignmentDetails();
 }
 getAssignmentDetails() : void {
@@ -223,6 +247,22 @@ joinmeet(){
   let today=Date.now();
   this.jstoday=new Date(formatDate(today, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0530'));
    this.videoservice.getmeetdetails(this.subjectid).subscribe(info=>{
+     if(info==null){
+      let dialogRef = this.matDialog.open(GreetingsComponent,{
+        data: {
+        title:"Meet",
+        message:"No Meet scheduled as of now",
+        }
+      
+      });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true'){
+          //alert("Successfully logged in");
+          location.reload();
+        }
+      });
+     } else {
     console.log(info);
     this.v = info;
     var new_startdate = new Date(formatDate(this.v.startdate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
@@ -231,7 +271,8 @@ joinmeet(){
     var s = `http://localhost:3000`+this.v.url;
     if(this.v.gracetime>0 && this.jstoday<=new_enddate && this.jstoday>=new_startdate) {
       var additional_time = new Date(new_startdate.getTime() + this.v.gracetime*60000);
-      if(additional_time<=new_enddate){
+      console.log(additional_time)
+      if(additional_time>=this.jstoday){
         window.open(s, "_blank");
       }else{
         let dialogRef = this.matDialog.open(GreetingsComponent,{
@@ -269,7 +310,9 @@ joinmeet(){
       });
      }
     }
+  }
    });
+  
 }
 
 

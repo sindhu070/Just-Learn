@@ -62,5 +62,15 @@ submitmarks(srollno:string,qid:string,marks:number){
   return this.http.get(`${this.baseUrl}/getsubmissiondetails/${quizid}/${srollno}`);
  }
 
+ changeenddate(qid:string,enddate:any){
+  const header = {'content-type': 'application/json'};
+  var obj = {
+    "id":qid,
+    "enddate":enddate
+   }
+  const body = JSON.stringify(obj);
+  return this.http.put(`${this.baseUrl}/updatedeadline`, body, {headers: header, responseType: 'text'});
+ }
+
 }
 

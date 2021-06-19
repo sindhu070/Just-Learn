@@ -599,17 +599,17 @@ function initPeer() {
       title: "<strong>Welcome " + myPeerName + "</strong>",
       imageAlt: "mirotalk-welcome",
       imageUrl: welcomeImg,
-      html:
-        `
-      <br/> 
-      <p style="color:white;">Share this meeting invite others to join.</p>
-      <p style="color:rgb(8, 189, 89);">` +
-        myRoomUrl +
-        `</p>`,
-      showDenyButton: true,
+      // html:
+      //   `
+      // <br/> 
+      // <p style="color:white;">Share this meeting invite others to join.</p>
+      // <p style="color:rgb(8, 189, 89);">` +
+      //   myRoomUrl +
+      //   `</p>`,
+      // showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: `Copy meeting URL`,
-      denyButtonText: `Email invite`,
+      // confirmButtonText: `Copy meeting URL`,
+      // denyButtonText: `Email invite`,
       cancelButtonText: `Close`,
       showClass: {
         popup: "animate__animated animate__fadeInDown",

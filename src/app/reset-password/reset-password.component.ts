@@ -40,7 +40,7 @@ export class ResetPasswordComponent implements OnInit {
     let dialogRef = this.matDialog.open(GreetingsComponent,{
       data: {
       title:"Reset Password",
-      message:"passwords doesn't match",
+      message:"Please check the values",
       }
     
     });

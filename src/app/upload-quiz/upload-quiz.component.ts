@@ -239,7 +239,7 @@ displayquestions=false;
     // let options : string[];
     // options = [];
     let correctanswers=[];
-    let options=[];
+    let options=["blank"];
     this.qd.qid=this.quizid;
     this.qd.marks=this.selectedmark1;
     let arr2 = options.filter(i => i !== null); 

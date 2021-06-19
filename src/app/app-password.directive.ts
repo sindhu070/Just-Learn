@@ -24,13 +24,13 @@ toggle(span: HTMLElement) {
       span.innerHTML = 'Hide';
     } else {
       this.el.nativeElement.setAttribute('type', 'password');
-      span.innerHTML = 'Show';
+      span.innerHTML = `Show`;
     }
   }
 setup() {
     const parent = this.el.nativeElement.parentNode;
     const span = document.createElement('span');
-    span.innerHTML = `Show`;
+    span.innerHTML =  `Show`;
     span.addEventListener('click', (event) => {
       this.toggle(span);
     });

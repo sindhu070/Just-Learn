@@ -39,6 +39,7 @@ import { DisplayQuestionTypeComponent } from './display-question-type/display-qu
 import { DisplayQuizComponent } from './display-quiz/display-quiz.component';
 import { ShowMarksStudentComponent } from './show-marks-student/show-marks-student.component';
 import { AppPasswordDirective } from './app-password.directive';
+import { ChangeDeadlineComponent } from './change-deadline/change-deadline.component';
 
 
 const routes: Routes = [
@@ -78,6 +79,7 @@ const routes: Routes = [
     DisplayQuizComponent,
     ShowMarksStudentComponent,
     AppPasswordDirective,
+    ChangeDeadlineComponent,
 
   ],
   
@@ -108,7 +110,8 @@ const routes: Routes = [
     EnterOtpComponent,
     ResetPasswordComponent,
     NavbarComponent,
-    DisplayQuestionTypeComponent
+    DisplayQuestionTypeComponent,
+    ChangeDeadlineComponent
 
   ]
 })

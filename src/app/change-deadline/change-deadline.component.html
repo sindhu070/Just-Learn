@@ -1,0 +1,17 @@
+
+<h2 mat-dialog-title>{{con1.title}}</h2>
+<mat-dialog-content>
+  <form class="form">
+  <div class="form-group">
+    <input class="form-control" placeholder="Quiz End Time" onfocus="this.type='datetime-local';this.value='2011-08-19T13:45:00'" name="quizendtime" [(ngModel)]="quizenddate" #quizendtime="ngModel" id="example-datetime-local-input" required><br>
+  </div>
+  <div *ngIf="quizendtime.invalid && (quizendtime.touched)" style="color:red"> 
+	  *Above Field required. 
+</div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="btn btn-success" mat-dialog-close mat-dialog-close="submit" (click)="submit(quizenddate)">Submit</button>
+</mat-dialog-actions>
+

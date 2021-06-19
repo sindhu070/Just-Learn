@@ -63,4 +63,17 @@ export class HomeComponent  {
     });
   }
 
+
+  sindhu(){
+    window.open("https://www.linkedin.com/in/sindhu-sai-52389a1a1/", "_blank");
+  }
+  aditya(){
+    window.open("https://www.linkedin.com/in/kanduri-sai-sangameswara-aadithya-39b848192/", "_blank");
+  }
+  vaidehi(){
+    window.open("https://www.linkedin.com/in/vaidehi-kolluru-9939591a0", "_blank");
+  }
+  vasanth(){
+    window.open("https://www.linkedin.com/in/vasanth-raj-29664417a/", "_blank");
+  }
 }

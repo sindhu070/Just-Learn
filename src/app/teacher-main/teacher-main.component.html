@@ -10,7 +10,7 @@
 <div id="container1">
   <nav>
     <div id="logo">
-     Just-Learn
+      Just-Learn - Teacher
     </div>
     <ul>
       <li><a (click)="home()">Home</a></li>
@@ -227,6 +227,9 @@
       <th>
         Info
       </th>
+      <th>
+        Changes
+       </th>
     </tr>
     <tr *ngFor="let q of quizarray">
     <td>
@@ -237,6 +240,9 @@
     </td>
     <td>
       <button class="btn btn-success" (click)="viewstudent(q.id)">View Student details</button>
+    </td>
+    <td>
+      <button class="btn btn-warning" (click)="Changedeadline(q.id,q.enddate)">Change Deadline</button>
     </td>
   </tr>
   </table>

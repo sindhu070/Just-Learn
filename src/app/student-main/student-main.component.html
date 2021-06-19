@@ -11,7 +11,7 @@
 <div id="container1">
   <nav>
     <div id="logo">
-     Just-Learn
+     Just-Learn - Student
     </div>
     <ul>
       <li><a (click)="home()">Home</a></li>
@@ -140,6 +140,9 @@
       <th>
        Actions
       </th>
+      <th>
+        Check
+      </th>
 
     </tr>
 
@@ -152,6 +155,9 @@
       <td>{{q.time}}</td>
       <td>
       <button class="btn btn-success" (click)="openquiz(q.id,q.startdate,q.enddate)">Open Quiz</button>
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="checkmarks(q.id)">Check Marks</button>
     </td>
   </ng-container>
   </tr>

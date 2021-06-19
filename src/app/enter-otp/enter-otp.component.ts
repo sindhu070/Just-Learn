@@ -18,11 +18,11 @@ export class EnterOtpComponent implements OnInit {
  submit(otp:string) {
    if(this.con1.otp===otp){
     let dialogRef = this.matDialog.open(ResetPasswordComponent,{
-      height: '250px',
-      width: '400px',
+      height: '300px',
+      width: '420px',
       data: {
       title : "Password Reset",
-      emailid:this.con1.emailid
+      emailid:this.con1.email
       }
  });
    } else {

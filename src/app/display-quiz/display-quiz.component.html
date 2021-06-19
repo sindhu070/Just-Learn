@@ -121,7 +121,7 @@
             </label>
           </div>
           <div *ngIf="q.type==3">
-            <input placeholder="Enter your answer here...." class="form-control" type="text" name="textval" [(ngModel)]="textval1" #textval="ngModel" (change)="onSelect(q.type,myMap,pager.index + 1,textval1);"/> 
+            <input type="text" placeholder="Enter your answer here...." class="form-control"  name="textval" [(ngModel)]="textval1" #textval="ngModel" (change)="onSelect(q.type,myMap,pager.index + 1,textval1);"/> 
         </div>
           </div>
           </div>

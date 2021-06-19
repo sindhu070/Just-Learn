@@ -16,6 +16,7 @@ import {DatePipe, formatDate} from '@angular/common';
 import { Quiz } from '../Quiz';
 import { quizService } from '../quiz.service';
 import { VideoService } from '../VideoService';
+import { ChangeDeadlineComponent } from '../change-deadline/change-deadline.component';
 @Component({
   selector: 'app-teacher-main',
   templateUrl: './teacher-main.component.html',
@@ -57,6 +58,9 @@ export class TeacherMainComponent implements OnInit {
    gtime:any;
   //  joinval=false;
   jstoday: Date;
+  startdates: string;
+  enddates: string;
+  js1today: string;
   constructor(private videoservice:VideoService,private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
@@ -256,7 +260,33 @@ export class TeacherMainComponent implements OnInit {
       });
     }
     openquiz(qid:string) {
+      let today=Date.now();
+      this.jstoday=new Date(formatDate(today, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0530'));
+      this.quizservice.getQuizDetailsByQuizId(qid).subscribe(s=>{
+      console.log(s.startdate);
+      console.log(s.enddate);
+      var new_startdate = new Date(formatDate(s.startdate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+      var new_enddate = new Date(formatDate(s.enddate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+    if(this.jstoday<=new_enddate && this.jstoday>=new_startdate){
       this.router.navigate(['uploadquiz',qid,this.teacherid]);
+    } else {
+    let dialogRef = this.matDialog.open(GreetingsComponent,{
+      data: {
+      title:"Upload",
+      message:"Couldn't open the quiz.Please Check the deadline.",
+      }
+    
+    });
+    dialogRef.afterClosed().subscribe(result=> {
+      console.log(`dialog result:${result}`)
+      if(result === 'true'){
+        //alert("Successfully logged in");
+        // location.reload();
+      }
+    });
+    }
+      });
+
     }
     getquizdetails(){
       this.quizservice.getquizdetails(this.subjectid).subscribe(info=>{
@@ -274,19 +304,35 @@ export class TeacherMainComponent implements OnInit {
           let dialogRef = this.matDialog.open(GreetingsComponent,{
             data: {
             title:"Meet Details",
-            message:"Request successfully place. Please create the Meet.",
+            message:"Request successfully placed. Please create the Meet Room.",
             }
           });
           dialogRef.afterClosed().subscribe(result=> {
             console.log(`dialog result:${result}`)
             if(result === 'true'){
               // alert("Successfully logged in");
-              window.open( 
-                `http://localhost:3000/?myparam=${this.subjectid}`, "_blank");
+              window.open(`http://localhost:3000/?myparam=${this.subjectid}`, "_blank");
             }
           });
         }
       });
+    }
+
+    Changedeadline(qid:String,enddate:any){
+      let dialogRef = this.matDialog.open(ChangeDeadlineComponent,{
+        data: {
+        title:"Deadline Details",
+        data:qid
+        }
+      
+      });
+      dialogRef.afterClosed().subscribe(result=> {
+        console.log(`dialog result:${result}`)
+        if(result === 'true'){
+          //alert("Successfully logged in");
+          location.reload();
+        }
+      }); 
     }
 
     getmeetdetails(){

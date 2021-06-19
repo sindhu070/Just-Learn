@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AssignmentListComponent } from './assignment-list/assignment-list.component';
+import { ChangeDeadlineComponent } from './change-deadline/change-deadline.component';
 import { DisplayQuizComponent } from './display-quiz/display-quiz.component';
 import { HomeComponent } from './home/home.component';
 import { InlineEditComponent } from './inline-edit/inline-edit.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
     {path:'uploadquiz/:quizid/:tid', component:UploadQuizComponent},
     {path:'seequiz/:quizid/:rollno', component:DisplayQuizComponent},
     {path:'quizstudents/:id/:quizid', component:ShowMarksStudentComponent},
+    {path:'changedeadline/:quizid', component:ChangeDeadlineComponent},
     {path:'', redirectTo: 'home', pathMatch:'full'}
 
     
