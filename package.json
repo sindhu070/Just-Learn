@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -24,9 +25,11 @@
     "@ng-bootstrap/ng-bootstrap": "^3.0.0",
     "bootstrap": "^4.6.0",
     "core-js": "^2.5.4",
+    "express": "^4.17.1",
     "jquery": "^3.6.0",
     "ng-http-loader": "^3.2.0",
     "ngx-progressbar": "^6.0.0",
+    "path": "^0.12.7",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
