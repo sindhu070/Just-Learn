@@ -14,6 +14,7 @@ export class EnterOtpComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA)private con1:any,private loginservice:LoginService,private route: ActivatedRoute,private router:Router,private matDialog:MatDialog) { }
 
   ngOnInit() {
+    console.log("Entyer",this.con1.emailid)
   }
  submit(otp:string) {
    if(this.con1.otp===otp){
@@ -22,7 +23,7 @@ export class EnterOtpComponent implements OnInit {
       width: '420px',
       data: {
       title : "Password Reset",
-      emailid:this.con1.email
+      emailid:this.con1.emailid
       }
  });
    } else {

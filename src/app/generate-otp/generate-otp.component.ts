@@ -25,7 +25,7 @@ export class GenerateOtpComponent implements OnInit {
    this.loginservice.generateOTP(email).subscribe(data=>{
     //  console.log(data);
      if(data != "Email id does not exist") {
-       
+       console.log("Val:",email)
       let dialogRef = this.matDialog.open(EnterOtpComponent,{
         height: '300px',
         width: '400px',

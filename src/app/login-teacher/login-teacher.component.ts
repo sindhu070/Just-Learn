@@ -53,7 +53,7 @@ export class LoginTeacherComponent implements OnInit {
       });
     } else {
     this.teacherservice.findTeacherByEmail(this.login1.username).subscribe(d=>{
-      this.id = d.id;
+    this.id = d.id;
    this.teacherservice.CheckLoginStudent(this.login1).subscribe(data1 => {
     console.log(data1);
     if (data1 === 'passwords matched') {

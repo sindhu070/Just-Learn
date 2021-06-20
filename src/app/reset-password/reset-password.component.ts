@@ -17,6 +17,7 @@ export class ResetPasswordComponent implements OnInit {
   }
  update(pass:string,rpass:string) {
    if(pass===rpass){
+     if(this.con2.emailid != undefined)
      this.loginservice.resetPassword(this.con2.emailid,pass).subscribe(data=>{
        console.log(data);
        if(data==="Password resetted successfully"){
