@@ -61,6 +61,7 @@ export class TeacherMainComponent implements OnInit {
   startdates: string;
   enddates: string;
   js1today: string;
+  s: any;
   constructor(private videoservice:VideoService,private quizservice:quizService,private datePipe: DatePipe,private matDialog:MatDialog,private http: HttpClient,private route: ActivatedRoute,private router:Router,private subjectservice:SubjectService,private studentservice:StudentService,private teacherservice:TeacherService) { }
 
   ngOnInit() {
@@ -262,11 +263,10 @@ export class TeacherMainComponent implements OnInit {
     openquiz(qid:string) {
       let today=Date.now();
       this.jstoday=new Date(formatDate(today, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0530'));
-      this.quizservice.getQuizDetailsByQuizId(qid).subscribe(s=>{
-      console.log(s.startdate);
-      console.log(s.enddate);
-      var new_startdate = new Date(formatDate(s.startdate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
-      var new_enddate = new Date(formatDate(s.enddate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+      this.quizservice.getQuizDetailsByQuizId(qid).subscribe(w=>{
+        this.s = w;
+      var new_startdate = new Date(formatDate(this.s.startdate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
+      var new_enddate = new Date(formatDate(this.s.enddate, 'yyyy-MM-dd hh:mm:ss a', 'en-US', '+0000'));
     if(this.jstoday<=new_enddate && this.jstoday>=new_startdate){
       this.router.navigate(['uploadquiz',qid,this.teacherid]);
     } else {
